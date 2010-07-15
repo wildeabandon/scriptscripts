@@ -1,10 +1,15 @@
 #!/usr/bin/env python
 #Code to (hopefully) un-HTML and TeX up Buffy scripts
 
-import os,string,sys
+import os,string,sys,os.path
+
+#edit these as appropriate
+basedir=os.path.expanduser("~/tex/scripts/buffys6")
+datadir=basedir+"/html"
+outdir=basedir+"/tex"
 
 #beware of namespace clashes doing this
-from casting import *
+#from casting import *
 
 #part -> person mapping
 thiscast={}
@@ -93,6 +98,25 @@ def casttable(f):
     for k in keys:
         print >>f, "%s & %s\\\\" % (k,thiscast[k])
     print >>f, "\\end{tabular}"
+
+def ord_list():
+    '''returns a list of the .htm files'''
+    x=["%s/buffy-6%02d.htm" % (datadir,x) for x in range(1,23) ]
+    return x
+
+def first_pass(ph):
+    '''opens ph (HTML file) and does some first-pass stuff
+
+    specifically, it extracts the episode title, and works out what
+    the cast list should be
+    '''
+    f=open(ph,"r")
+    #look for the title
+    for line in f:
+        if line.strip()[0:7]=="<title>":
+            title=line.strip().split('|')[2].split('<')[0].strip()
+            break
+    print title
 
 def parse_html(fh,ft):
     '''turns fh (HTML file) into ft (TeX output)
