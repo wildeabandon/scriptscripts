@@ -7,3 +7,8 @@ differences in the HTML used to typeset the Season 6 scripts.
 The initial git checkin is frob.py from Buffy Season 2, and I've
 slowly added things to it - at some point I'll throw away the old
 functions. 
+
+Current State:
+
+ord_list() returns the correctly-ordered paths to each episode's HTML
+first_pass(x) returns the title of x (which should be a path)
