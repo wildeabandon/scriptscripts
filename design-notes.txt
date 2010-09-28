@@ -1,0 +1,9 @@
+		  parrot - make a script with python
+
+This code is based on the python I used for Buffy Season 2, hopefully
+with some enhancements, and also with changes to cope with the
+differences in the HTML used to typeset the Season 6 scripts.
+
+The initial git checkin is frob.py from Buffy Season 2, and I've
+slowly added things to it - at some point I'll throw away the old
+functions. 
