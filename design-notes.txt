@@ -8,7 +8,16 @@ The initial git checkin is frob.py from Buffy Season 2, and I've
 slowly added things to it - at some point I'll throw away the old
 functions. 
 
+There is a problem that lines are sometimes (never?) delimited by
+line-breaks, and other times by <br> (or <p>) [or the same,
+upper-case]. The thing to do may be to load chunks of the file into
+memory, re-line-break on <{p,P,br,BR}>, and then run through that
+array. 
+
 Current State:
 
 ord_list() returns the correctly-ordered paths to each episode's HTML
-first_pass(x) returns the title of x (which should be a path)
+first_pass(x) returns the title of x (which should be a path), and
+will also return a list of probably-parts
+make_lines(f) splits f (to EOF) into "lines", i.e. ignoring \n and
+instead breaking where there is <{p,P,br,BR}> [UNFINISHED]

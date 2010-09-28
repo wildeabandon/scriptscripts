@@ -116,7 +116,22 @@ def first_pass(ph):
         if line.strip()[0:7]=="<title>":
             title=line.strip().split('|')[2].split('<')[0].strip()
             break
-    print title
+    #now go forward to the <hr> element that marks the episode start
+    for line in f:
+        if line.strip()[0:14]=="<hr width=400>":
+            break
+
+def make_lines(f):
+    '''make_lines(f) -> array of lines from f
+
+    rather than lines based on \n, this is based on <p> or <br> tags,
+    in any case
+    '''
+    lines=[]
+    midline=False
+    for s in f:
+        s=s.strip()
+        #need to build a list of the points in s at which a break occurs
 
 def parse_html(fh,ft):
     '''turns fh (HTML file) into ft (TeX output)
