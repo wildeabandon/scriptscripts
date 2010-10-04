@@ -20,4 +20,6 @@ ord_list() returns the correctly-ordered paths to each episode's HTML
 first_pass(x) returns the title of x (which should be a path), and
 will also return a list of probably-parts
 make_lines(f) splits f (to EOF) into "lines", i.e. ignoring \n and
-instead breaking where there is <{p,P,br,BR}> [UNFINISHED]
+instead breaking where there is <{p,P,br,BR}>
+guess_parts(lines) looks for parts (identified by being all-upper-case
+strings before : in a line

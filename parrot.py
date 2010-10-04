@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #Code to (hopefully) un-HTML and TeX up Buffy scripts
 
-import os,string,sys,os.path
+import os,string,sys,os.path,re
 
 #edit these as appropriate
 basedir=os.path.expanduser("~/tex/scripts/buffys6")
@@ -104,6 +104,17 @@ def ord_list():
     x=["%s/buffy-6%02d.htm" % (datadir,x) for x in range(1,23) ]
     return x
 
+def guess_parts(lines):
+    '''guesses what the parts in lines are'''
+    parts=[]
+    for l in lines:
+        l=l.split(':')
+        if len(l)>1:
+            p=l[0]
+            if p.upper()==p and p not in parts:
+                parts.append(p)
+    return parts
+
 def first_pass(ph):
     '''opens ph (HTML file) and does some first-pass stuff
 
@@ -118,8 +129,11 @@ def first_pass(ph):
             break
     #now go forward to the <hr> element that marks the episode start
     for line in f:
-        if line.strip()[0:14]=="<hr width=400>":
+        if line.strip()[0:14].upper()=="<hr width=400>".upper():
             break
+    lines=make_lines(f)
+    parts=guess_parts(lines)
+    return title,parts
 
 def make_lines(f):
     '''make_lines(f) -> array of lines from f
@@ -127,11 +141,31 @@ def make_lines(f):
     rather than lines based on \n, this is based on <p> or <br> tags,
     in any case
     '''
+    splitre=re.compile("(?:<br>)|(?:<p>)",re.I)
     lines=[]
     midline=False
     for s in f:
-        s=s.strip()
-        #need to build a list of the points in s at which a break occurs
+        if 'Executive Producers' in s or 'End of episode' in s:
+            break
+        l=splitre.split(s)
+        if len(l)==0:
+            continue
+        if midline:
+            lines.append(part+' '+l[0])
+            midline=False
+            l=l[1:]
+        if len(l)==0:
+            continue
+        for x in l[:-1]:
+            x=x.strip()
+            if len(x) > 0:
+                lines.append(x)
+        #if the last entry is non-zero-length, then it's a partial line
+        x=l[-1].strip()
+        if len(x) > 0:
+            part=x
+            midline=True
+    return lines
 
 def parse_html(fh,ft):
     '''turns fh (HTML file) into ft (TeX output)
