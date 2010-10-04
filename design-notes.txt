@@ -18,3 +18,16 @@ instead breaking where there is <{p,P,br,BR}>
 guess_parts(lines) looks for parts (identified by being all-upper-case
 strings before : in a line
 
+Parts:
+
+We need to know which parts are different in each episode
+(e.g. vampires), and which are common either across the series or in
+linked episodes (which is essentially 1+2 and 21+22)
+
+Also, we need 3 forms of each part:
+i) cast-list form (e.g. Ms. Lefcort)
+ii) this is their line form (e.g. MS. LEFCORT)
+iii) LaTeX-safe-command-name form (e.g. MSLEFCORT)
+
+...and to know which parts don't appear in the cast-list (e.g. Giles
+voice-over) 
