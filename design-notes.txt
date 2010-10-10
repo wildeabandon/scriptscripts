@@ -17,6 +17,13 @@ will also return a list of probably-parts
 instead breaking where there is <{p,P,br,BR}>
 * guess_parts(lines) looks for parts (identified by being all-upper-case
 strings before : in a line
+* gen_castlist(): calls first_pass on each episode in turn, generates
+a list of each episode, in turn being a title,cast tuple. Writes out a
+master cast-list file (contains each part only once) *PARTIAL*
+*gen_partarrays(): creates Part objects for every part, and produces
+three arrays of parts. Also pickles these to disk
+*get_partarrays(): either loads the pickles, or calls gen_partarrays()
+
 
 Parts:
 

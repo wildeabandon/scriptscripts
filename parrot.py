@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #Code to (hopefully) un-HTML and TeX up Buffy scripts
 
-import os,string,sys,os.path,re
+import os,string,sys,os.path,re,cPickle
 
 #edit these as appropriate
 basedir=os.path.expanduser("~/tex/scripts/buffys6")
@@ -110,10 +110,95 @@ def guess_parts(lines):
     for l in lines:
         l=l.split(':')
         if len(l)>1:
-            p=l[0]
-            if p.upper()==p and p not in parts:
-                parts.append(p)
+            p=' '.join(l[0].split())
+            if p.upper()==p:
+                if p[:12]=="<BLOCKQUOTE>":
+                    p=p[12:]
+                if p not in parts:
+                    parts.append(p)
     return parts
+
+class Part:
+    def __init__(self,name,episode,multiple=None):
+        self.name=name
+        if ' ' in self.name:
+            ans=raw_input("%s a real part? " % name)
+            if ans.upper().strip()=="Y":
+                self.real=True
+            else:
+                self.real=False
+        else:
+            if name=="ALL" or name=="BUFFYBOT" or '/' in name:
+                self.real=False
+            else:
+                self.real=True
+        self.firstep=episode
+        self.checked=False #multiple state unknown
+        self.appearances=[episode]
+        if multiple is not None:
+            self.checked=True
+            self.multiple=multiple
+    def appear(self,episode):
+        if self.checked==True or ( self.firstep==1 and episode==2 ) \
+               or ( self.firstep==21 and episode==22 ) :
+            self.appearances.append(episode)
+        else:
+            ans=raw_input("%s appears in %d and %d (at least). Same part? " \
+                          % (self.name,self.firstep,episode))
+            if ans.upper().strip()=="Y":
+                self.multiple=False
+            else:
+                self.multiple=True
+            self.checked=True
+
+def add_part(name,episode,allparts,multiple=None):
+    '''either adds episode to parts list of episodes, or creates new part'''
+    if name in allparts:
+        allparts[name].appear(episode)
+    else:
+        if multiple is not None:
+            p=Part(name,episode,multiple)
+        else:
+            p=Part(name,episode)
+        allparts[name]=p
+    return allparts
+
+def get_partarrays():
+    '''either loads or generates the allparts,partsbyep and titles arrays'''
+    try:
+        f=open("allparts.dat","rb")
+        pickle=cPickle.Unpickler(f)
+        allparts=pickle.load()
+        partsbyep=pickle.load()
+        titles=pickle.load()
+    except IOError:
+        allparts,partsbyep,titles=gen_partarrays()
+    return allparts,partsbyep,titles
+        
+def gen_partarrays():
+    '''creates arrays of parts and titles'''
+    allparts={}
+    partsbyep=[]
+    titles=[]
+    htmls=ord_list()
+    ep=1
+    for f in htmls:
+        title,parts=first_pass(f)
+        #add a narrator
+        allparts=add_part("NARRATOR",ep,allparts,True)
+        for p in parts:
+            allparts=add_part(p,ep,allparts)
+        parts.append("NARRATOR")
+        partsbyep.append(parts)
+        titles.append(title)
+        ep+=1
+    f=open("allparts.dat","wb")
+    pickle=cPickle.Pickler(f,-1)
+    pickle.dump(allparts)
+    pickle.dump(partsbyep)
+    pickle.dump(titles)
+    f.close()
+    return allparts,partsbyep,titles
 
 def first_pass(ph):
     '''opens ph (HTML file) and does some first-pass stuff
