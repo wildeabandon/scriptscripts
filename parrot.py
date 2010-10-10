@@ -200,6 +200,39 @@ def gen_partarrays():
     f.close()
     return allparts,partsbyep,titles
 
+
+def get_castlist():
+    '''write out a single list of the entire cast'''
+    allparts,partsbyep,titles=get_partarrays()
+    byapp=[]
+    parts=allparts.keys()
+    for p in parts:
+        x=allparts[p]
+        n=len(x.appearances)
+        #deal with parts that are just in 1,2 or 21,22
+        if ( x.appearances==[1,2] or x.appearances==[21,22] ) \
+           and x.checked==False:
+            x.multiple=False
+        if x.real==True and n>1 and x.multiple==False:
+            byapp.append( (n,x.name.lower().capitalize()) )
+    byapp.sort()
+    f=open("casting.txt","w")
+    print >>f, "Buffy Season 6 - Cast List\n\nRecurring parts:"
+    for p in byapp:
+        print >>f, "(%d) %s:" % (p[0],p[1])
+    print >>f
+    for ep in range(1,23):
+        print >>f, titles[ep-1]
+        parts=partsbyep[ep-1]
+        parts.sort()
+        for p in parts:
+            x=allparts[p]
+            n=len(x.appearances)
+            if x.real==True and (n==1 or x.multiple==True):
+                print >>f, x.name.lower().capitalize()
+        print >>f
+    f.close()
+
 def first_pass(ph):
     '''opens ph (HTML file) and does some first-pass stuff
 
