@@ -248,7 +248,7 @@ def get_castlist():
             x=allparts[p]
             n=len(x.appearances)
             if x.real==True and (n==1 or x.multiple==True):
-                if x.name.lower().capitalize not in names:
+                if x.name.lower().capitalize() not in names:
                     print >>f, "%s:" % (x.name.lower().capitalize())
                     names.append(x.name.lower().capitalize())
         print >>f
