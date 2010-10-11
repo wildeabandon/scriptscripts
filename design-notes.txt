@@ -25,6 +25,11 @@ This is a bit lame, in that it fails to sort the big parts properly -
 *gen_partarrays(): creates Part objects for every part, and produces
 three arrays of parts. Also pickles these to disk
 *get_partarrays(): either loads the pickles, or calls gen_partarrays()
+*fix_parts(): this applys some fixes to the members of the allparts
+and partsbyep arrays, and then re-saves the new Pickle. We'll need to
+comment out fixes once applied, to avoid attempted
+multiple-applications.
+
 
 Class Part:
  contains a list of appearances, whether this is really multiple parts
