@@ -19,9 +19,8 @@ instead breaking where there is <{p,P,br,BR}>
 strings before : in a line
 * get_castlist(): calls first_pass on each episode in turn, generates
 a list of each episode, in turn being a title,cast tuple. Writes out a
-master cast-list file (contains each part only once)
-This is a bit lame, in that it fails to sort the big parts properly -
-* deal with this using emacs on casting.txt :)
+master cast-list file (contains each part only once). Currently
+disabled, so we can start working on the casting itself.
 *gen_partarrays(): creates Part objects for every part, and produces
 three arrays of parts. Also pickles these to disk
 *get_partarrays(): either loads the pickles, or calls gen_partarrays()
