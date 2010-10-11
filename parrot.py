@@ -233,7 +233,7 @@ def get_castlist():
         print >>f, "(%d) %s:" % (p[0],p[1])
     print >>f
     for ep in range(1,23):
-        print >>f, titles[ep-1]
+        print >>f, "* %s *" % (titles[ep-1])
         parts=partsbyep[ep-1]
         parts.sort()
         for p in parts:
