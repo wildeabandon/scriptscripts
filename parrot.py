@@ -229,8 +229,13 @@ def get_castlist():
     byapp.sort(reverse=True)
     f=open("casting.txt","w")
     print >>f, "Buffy Season 6 - Cast List\n\nRecurring parts:"
+    prev=None
     for p in byapp:
-        print >>f, "(%d) %s:" % (p[0],p[1])
+        if prev and p==prev:
+            pass
+        else:
+            print >>f, "(%d) %s:" % (p[0],p[1])
+        prev=p
     print >>f
     for ep in range(1,23):
         print >>f, "* %s *" % (titles[ep-1])
