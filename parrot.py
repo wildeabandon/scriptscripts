@@ -243,11 +243,14 @@ def get_castlist():
         print >>f, "* %s *" % (titles[ep-1])
         parts=partsbyep[ep-1]
         parts.sort()
+        names=[]
         for p in parts:
             x=allparts[p]
             n=len(x.appearances)
             if x.real==True and (n==1 or x.multiple==True):
-                print >>f, "%s:" % (x.name.lower().capitalize())
+                if x.name.lower().capitalize not in names:
+                    print >>f, "%s:" % (x.name.lower().capitalize())
+                    names.append(x.name.lower().capitalize())
         print >>f
     f.close()
 
