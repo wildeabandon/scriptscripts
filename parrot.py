@@ -244,6 +244,42 @@ def get_castlist():
         print >>f
     f.close()
 
+def fix_parts():
+    '''apply changes to the parts lists'''
+    allparts,partsbyep,titles=get_partarrays()
+    #make changes
+    
+    #this one is a typo
+    allparts["DANW"]=allparts["DAWN"]
+    #these are the same part,but both appear in the ep14 script
+    #LSD is in 5,14
+    allparts["CLEM"].appearances.append(5)
+    allparts["LOOSE-SKINNED DEMON"]=allparts["CLEM"]
+    #I don't think we can really have this as a part name
+    allparts["WITCHY-POO"].name="GIRL DRESSED AS WITCH"
+    #not a real part
+    allparts["BOTH"].real=False
+    #Narrator appears in this script
+    allparts["NARRATOR"].appearances.remove(12)
+    #Another typo
+    allparts["RICARD"]=allparts["RICHARD"]        
+    #not a real part
+    allparts["GUESTS"].real=False
+    #another typo
+    allparts["D"]=allparts["DAWN"]
+    #this is the voice of "Demon" in eps19-22
+    allparts["VOICE"].real=False
+    
+    #now save the new versions
+    os.rename("allparts.dat","allparts.dat.bak")
+    f=open("allparts.dat","wb")
+    pickle=cPickle.Pickler(f,-1)
+    pickle.dump(allparts)
+    pickle.dump(partsbyep)
+    pickle.dump(titles)
+    f.close()
+
+
 def first_pass(ph):
     '''opens ph (HTML file) and does some first-pass stuff
 
