@@ -19,11 +19,19 @@ instead breaking where there is <{p,P,br,BR}>
 strings before : in a line
 * gen_castlist(): calls first_pass on each episode in turn, generates
 a list of each episode, in turn being a title,cast tuple. Writes out a
-master cast-list file (contains each part only once) *PARTIAL*
+master cast-list file (contains each part only once)
+This is a bit lame, in that it fails to sort the big parts properly -
+* deal with this using emacs on casting.txt :)
 *gen_partarrays(): creates Part objects for every part, and produces
 three arrays of parts. Also pickles these to disk
 *get_partarrays(): either loads the pickles, or calls gen_partarrays()
 
+Class Part:
+ contains a list of appearances, whether this is really multiple parts
+ (e.g. vampire 1), whether this is a real part or e.g. a voiceover
+
+Class EpCount:
+ excends tuple - lets you sort by x[0], which should be an int.
 
 Parts:
 

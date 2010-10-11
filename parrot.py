@@ -128,7 +128,8 @@ class Part:
             else:
                 self.real=False
         else:
-            if name=="ALL" or name=="BUFFYBOT" or '/' in name:
+            if name=="ALL" or name=="BUFFYBOT" \
+                   or name=="BOTH" or '/' in name:
                 self.real=False
             else:
                 self.real=True
@@ -142,6 +143,10 @@ class Part:
         if self.checked==True or ( self.firstep==1 and episode==2 ) \
                or ( self.firstep==21 and episode==22 ) :
             self.appearances.append(episode)
+        elif self.real==False: #We assume any not-real parts aren't multiple
+            self.checked=True
+            self.multiple=False
+            self.appearances.append(episode)
         else:
             ans=raw_input("%s appears in %d and %d (at least). Same part? " \
                           % (self.name,self.firstep,episode))
@@ -150,6 +155,12 @@ class Part:
             else:
                 self.multiple=True
             self.checked=True
+            self.appearances.append(episode)
+
+#like a tuple, but the first element (an int) may be used for sorting
+class EpCount(tuple):
+    def __cmp__(self,other):
+        return(other[0]-self[0])
 
 def add_part(name,episode,allparts,multiple=None):
     '''either adds episode to parts list of episodes, or creates new part'''
@@ -214,8 +225,8 @@ def get_castlist():
            and x.checked==False:
             x.multiple=False
         if x.real==True and n>1 and x.multiple==False:
-            byapp.append( (n,x.name.lower().capitalize()) )
-    byapp.sort()
+            byapp.append( EpCount( (n,x.name.lower().capitalize()) ) )
+    byapp.sort(reverse=True)
     f=open("casting.txt","w")
     print >>f, "Buffy Season 6 - Cast List\n\nRecurring parts:"
     for p in byapp:
@@ -229,7 +240,7 @@ def get_castlist():
             x=allparts[p]
             n=len(x.appearances)
             if x.real==True and (n==1 or x.multiple==True):
-                print >>f, x.name.lower().capitalize()
+                print >>f, "%s:" % (x.name.lower().capitalize())
         print >>f
     f.close()
 
