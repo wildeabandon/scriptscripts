@@ -254,6 +254,89 @@ def get_castlist():
         print >>f
     f.close()
 
+def load_cast():
+    allparts,partsbyep,titles=get_partarrays()
+    cast={}
+    byperson={}
+    f=open("casting.txt","r")
+    #discard the first three lines
+    discard=f.readline(); discard=f.readline(); discard=f.readline()
+    multiples={}
+    for line in f:
+        line=line.strip()
+        if len(line)==0:
+            continue
+        elif line[0]=='*':
+            break
+        else:
+            a,b=line.split(':')
+            a=a.split(')')[1].strip()
+            b=b.strip()
+            multiples[a.upper()]=[a,b]
+    episode=1
+    castthisep={}
+    for line in f:
+        line=line.strip()
+        if len(line)==0:
+            continue
+        elif line[0]=='*':
+            #deal with multiple-characters not re-cast for this ep.
+            c=castthisep.keys()
+            parts=partsbyep[episode-1]
+            for p in parts:
+                pnu=allparts[p].name.upper()
+                if pnu not in c and allparts[p].real==True:
+                    who=multiples[pnu]
+                    castthisep[pnu]=who
+                    if who[1] != '':
+                        if who[1] in byperson:
+                            try:
+                                byperson[who[1]][episode].append(\
+                                who[0])
+                            except KeyError:
+                                byperson[who[1]][episode]=[who[0]]
+                        else:
+                            byperson[who[1]]={episode:[who[0]]}
+            cast[episode]=castthisep
+            episode+=1
+            castthisep={}
+        else: #actually a casting :)
+            line=line.split(':')
+            a=line[0]; b=line[1]
+            b=b.strip()
+            if len(line)==3: #over-ride how the name should appear
+                c=line[2]
+                c=c.strip()
+            else:
+                c=a
+            castthisep[a.upper()]=[c,b]
+            if b != '':
+                if b in byperson:
+                    if episode in byperson[b]:
+                        byperson[b][episode].append(c)
+                    else:
+                        byperson[b][episode]=[c]
+                else:
+                    byperson[b]={episode:[c]}
+    f.close()
+    people=byperson.keys()
+    people.sort()
+    for p in people:
+        print "%s is in %s episodes" % (p,len(byperson[p].keys()))
+    return cast,byperson
+
+def showep(e):
+    cast,byperson=load_cast()
+    
+
+def unused():
+    cast,byperson=load_cast()
+    people=byperson.keys()
+    people.sort()
+    for p in people:
+        if len(byperson[p].keys())<22:
+            print "%s is in %s episodes" % (p,len(byperson[p].keys()))
+    
 def fix_parts():
     '''apply changes to the parts lists'''
     allparts,partsbyep,titles=get_partarrays()
