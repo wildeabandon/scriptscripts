@@ -42,8 +42,8 @@ Homeowner:		Ramesh
 Narrator:		Sam PF
 
 * After Life *
-Demon:
-Narrator:
+Demon:			Sally
+Narrator:		Ramesh
 
 * Flooded *
 Demon:
