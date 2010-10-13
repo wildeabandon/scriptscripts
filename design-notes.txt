@@ -29,7 +29,7 @@ and partsbyep arrays, and then re-saves the new Pickle. We'll need to
 comment out fixes once applied, to avoid attempted
 multiple-applications.
 *load_cast(): parses casting.txt, working out a cast for each episode
-*showep(e): shows the cast for episode e UNFINISHED
+*showep(e): shows the cast for episode e
 *unused(): gives an episode count for those not in every episode thusfar
 
 Class Part:

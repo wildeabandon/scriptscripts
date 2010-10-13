@@ -319,15 +319,35 @@ def load_cast():
                 else:
                     byperson[b]={episode:[c]}
     f.close()
-    people=byperson.keys()
-    people.sort()
-    for p in people:
-        print "%s is in %s episodes" % (p,len(byperson[p].keys()))
     return cast,byperson
 
 def showep(e):
     cast,byperson=load_cast()
-    
+    parts=cast[e].keys()
+    parts.sort()
+    #show cast parts first
+    for p in parts:
+        a=cast[e][p][0] #part name
+        b=cast[e][p][1] #person
+        if b!='':
+            print "%s: %s" % (a,b)
+    #then the uncast
+    for p in parts:
+        a=cast[e][p][0] #part name
+        b=cast[e][p][1] #person
+        if b=='':
+            print a, "uncast"
+    #then who hasn't been used?
+    slack=[]
+    for p in byperson:
+        if e not in byperson[p]:
+            slack.append("%s (%d)" %(p,len(byperson[p].keys())))
+    if len(slack)>0:
+        print "unused:",
+        for x in range(len(slack)-1):
+            print "%s," % slack[x],
+        print slack[-1]
+                        
 
 def unused():
     cast,byperson=load_cast()
