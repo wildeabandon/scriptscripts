@@ -36,10 +36,10 @@ Teacher:		Ramesh:Mr. Davis
 Vamp:			Ramesh:Vampire
 
 * Bargaining (2) *
-Demon:
-Doctor:
-Homeowner:
-Narrator:
+Demon:			Ralph
+Doctor:			Jack
+Homeowner:		Ramesh
+Narrator:		Sam PF
 
 * After Life *
 Demon:
