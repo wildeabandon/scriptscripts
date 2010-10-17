@@ -319,6 +319,7 @@ def load_cast():
                 else:
                     byperson[b]={episode:[c]}
     f.close()
+    del byperson['Nobody']
     return cast,byperson
 
 def showep(e):
@@ -329,7 +330,7 @@ def showep(e):
     for p in parts:
         a=cast[e][p][0] #part name
         b=cast[e][p][1] #person
-        if b!='':
+        if b!='' and b!='Nobody':
             print "%s: %s" % (a,b)
     #then the uncast
     for p in parts:

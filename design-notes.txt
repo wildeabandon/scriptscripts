@@ -32,6 +32,10 @@ multiple-applications.
 *showep(e): shows the cast for episode e
 *unused(): gives an episode count for those not in every episode thusfar
 
+"Nobody" is a special-case casting for parts that we aren't going to
+need (e.g. because they appear in flashbacks). We'll need to
+incorporate this elsewhere in due course.
+
 Class Part:
  contains a list of appearances, whether this is really multiple parts
  (e.g. vampire 1), whether this is a real part or e.g. a voiceover
