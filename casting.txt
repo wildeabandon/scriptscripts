@@ -54,23 +54,23 @@ Paramedic:		Nobody
 Tito:			Jack
 
 * Life Serial *
-Bartender:
-Chuck:
-Danny:
-Demon:
-Female customer:
-Green demon:
-Male customer:
-Many-eyed demon:
-Marco:
-Men:
-Mike:
-Narrator:
-Rachel:
-Scaly demon:
-Steve:
-Tony:
-Vince:
+Bartender:		Ramesh
+Chuck:			Ramesh
+Danny:			Sam PF
+Demon:			Nobody:Demon
+Female customer:	Sally
+Green demon:		Jack
+Male customer:		Jack
+Many-eyed demon:	Sally
+Marco:	  		Ramesh
+Men:			Nobody
+Mike:			Jack
+Narrator:		Taru
+Rachel:			Sam M
+Scaly demon:		Robert
+Steve:			Sally
+Tony:			Jack
+Vince:			Sebastian
 
 * All The Way *
 Boy:
