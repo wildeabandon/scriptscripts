@@ -16,17 +16,17 @@ Recurring parts:
 (4) Halfrek:		Sam M
 (3) Rack:		Matthew
 (3) Amy:		Sally
-(2) Watcher:		Sam M
+(2) Watcher:		Nobody
 (2) Razor:		Jack
 (2) Lorraine:
 (2) Katrina:		Sally
-(2) Gregor:		Nick
-(2) Angel:		Matthew
+(2) Gregor:		Nobody
+(2) Angel:		Nobody
 
 * Bargaining (1) * #some of these parts are just in the "previously..."
 Clyed:			Mark:Klyed
-Dad:			Mark
-Doctor:			Jack
+Dad:			Nick
+Doctor:			Nobody
 Mag:			Ralph
 Mom:			Sam M
 Ms. lefcort:		Sally:Ms. Lefcort
@@ -37,7 +37,7 @@ Vamp:			Ramesh:Vampire
 
 * Bargaining (2) *
 Demon:			Ralph
-Doctor:			Jack
+Doctor:			Nobody
 Homeowner:		Ramesh
 Narrator:		Sam PF
 
