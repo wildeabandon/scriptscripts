@@ -124,19 +124,22 @@ Vamp 2:			Sally:Vampire 2
 Vamp 3:			Mark:Vampire 3
 
 * Smashed *
-Backup singers:
-Bree:
-Female singer:
-Guy 1:
-Guy 2:
-Husband:
-Male singer:
-Narrator:
-Reporter:
-Rusty:
-Tv reporter:
-Wife:
-Woman:
+Giles:			Nobody
+Mugger 1(NS):		Ramesh
+Mugger 2(NS):		Sam PF
+Backup singers:		Nobody
+Bree:			Sam M
+Female singer:		Nobody
+Guy 1:			Jack
+Guy 2:			Sam PF
+Husband:		Jack
+Male singer:		Nobody
+Narrator:		Matthew
+Reporter:		Nobody:TV reporter
+Rusty:			Jack
+Tv reporter:		Matthew:TV reporter
+Wife:			Sam M
+Woman:			Sam M
 
 * Wrecked *
 Demon:
