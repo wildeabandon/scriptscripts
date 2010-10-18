@@ -73,20 +73,22 @@ Tony:			Jack
 Vince:			Sebastian
 
 * All The Way *
-Boy:
-Girl:
-Guy:
-Janice:
-Justin:
-Kaltenbach:
-Little boy:
-Narrator:
-Paramedic 1:
-Paramedic 2:
-Vamp 1:
-Vamp 2:
-Girl dressed as witch:
-Zack:
+Boy:			Mark
+Girl:			Sam M
+Guy:			Ralph
+Janice:			Sally
+Justin:			Sam PF
+Kaltenbach:		Ramesh
+Little boy:		Nick
+Narrator:		Nick
+Paramedic 1:		Ramesh
+Paramedic 2:		Ralph
+Vamp 1:	  		Ramesh
+Vamp 2:			Mark
+Girl dressed as witch:	Sally
+Woman dressed as ugly witch (NS): Sam M
+Car-jacking victim (NS):    Sam M
+Zack:			Jack
 
 * Once More With Feeling *
 Xander:	    	 	Nick
