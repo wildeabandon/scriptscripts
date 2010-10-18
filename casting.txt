@@ -95,16 +95,24 @@ Xander:	    	 	Nick
 Dawn:			Sally
 Spike:			Sam PF
 Willow:			Sam M
-Crowd:
-David:
+Crowd:			Nobody
+David:			Sam PF:Mustard Man
 Demon:			Naath
-Handsome guy:
-Marti:
-Minion:
-Narrator:
+Handsome guy:		Ralph:Rescued man
+Marti:			Catriona:Parking woman
+Minion:			Robert:Henchman 1
+Henchman 2(NS):		Ramesh
+Henchman 3(NS):		Jack
+Guy 1(NS):		Ralph
+Guy 2(NS):		Jack
+Narrator:		Ramesh
 Sweet:			Mark
-Vamp 1:
-Vamp 2:
+Vamp 1:			Robert:Vampire 1
+Vamp 2:			Sebastian:Vampire 2
+Combusting Dancer (NS):	Kat
+Priest (NS):	  	Jack
+Sunbather:		Naath
+Traffic warden (NS):	Jack
 
 * Tabula Rasa *
 Demon:
