@@ -142,11 +142,11 @@ Wife:			Sam M
 Woman:			Sam M
 
 * Wrecked *
-Demon:
-Girl:
-Guy:
-Narrator:
-Sleazy cigarette guy:
+Demon:			Sam PF
+Girl:			Sam M
+Guy:			Mark
+Narrator:		Ramesh
+Sleazy cigarette guy:	Jack
 
 * Gone *
 Boss:
