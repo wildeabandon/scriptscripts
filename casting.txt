@@ -149,14 +149,16 @@ Narrator:		Ramesh
 Sleazy cigarette guy:	Jack
 
 * Gone *
-Boss:
-Cleo:
-Cop:
-Coworker:
-Guard:
-Ms. kroger:		Sam M
-Narrator:
-Woman on tv:
+Boss:			Sam PF
+Cleo:			Taru
+Cop:			Jack
+Coworker:		Ramesh
+Guard:			Matthew
+Ms. kroger:		Sam M:Doris Kroeger
+Narrator:		Sally
+Woman on tv:		Sally
+Woman with cap in park(NS):	Sally
+Person walking (NS):	Sam PF
 
 * DoubleMeat Palace *
 Boy:
