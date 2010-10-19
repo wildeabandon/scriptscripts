@@ -195,12 +195,13 @@ Student:		Mark
 Teacher:		Ralph
 
 * As You Were *
-Narrator:
+Narrator:		Sam PF
 Riley:			Ramesh
-Sam:
-Todd:
-Vamp:
-Woman:
+Sam:			Sally
+Todd:			Jack
+Vamp:			Ralph:Vampire
+Woman:			Nobody
+Suvolte demon:		Mark
 
 * Hell's Bells *
 Caterer:
