@@ -160,19 +160,22 @@ Woman on tv:		Sally
 Woman with cap in park(NS):	Sally
 Person walking (NS):	Sam PF
 
-* DoubleMeat Palace *
-Boy:
-Customer:
-Father:
-Gary:
-Gina:
-Man:
+* DoubleMeat Palace * #"Man" appears twice, not the same person!
+Giles:			Nobody
+Warren:			Nobody
+Jonathan:		Nobody
+Boy:			Nick
+Customer:		Matthew
+Father:			Ralph
+Gary:			Ramesh
+Gina:			Sally
+Man:			Mark
 Manny:			Sam PF
-Narrator:
-Philip:
-Timothy:
-Wig lady:
-Woman:
+Narrator:		Jack
+Philip:			Mark
+Timothy:		Nick
+Wig lady:		Taru
+Woman:			Taru
 
 * Dead Things *
 Cop #1:
