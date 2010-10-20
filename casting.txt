@@ -195,7 +195,7 @@ Student:		Mark
 Teacher:		Ralph
 
 * As You Were *
-Narrator:		Sam PF
+Narrator:		Sam M
 Riley:			Ramesh
 Sam:			Sally
 Todd:			Jack
@@ -238,15 +238,18 @@ Vamp 2:			Jack:Vampire 2
 Vampire 1(NS):		Ramesh
 
 * Seeing Red *
-Audrew:
-Crying woman:
-Frank:
-Guard #1:
-Guard #2:
-Guy:
-Narrator:
-Suit:
-Woman:
+Audrew:			Nobody:Andrew
+Crying woman:		Sam M
+Frank: 			Matthew
+Guard #1:		Jack
+Guard #2:		Ramesh
+Guy:			Ramesh
+Narrator:		Matthew
+Suit:			Matthew
+Woman:			Sally
+Demon (NS):		Jack
+Vampire (NS):		Jack
+Frank's date(NS):	Sally
 
 * Villains *
 Bartender:
