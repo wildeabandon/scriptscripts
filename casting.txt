@@ -252,33 +252,33 @@ Vampire (NS):		Jack
 Frank's date(NS):	Sally
 
 * Villains *
-Bartender:
-Clerk:
-Coroner:
-Demon:
-Doctor:
-Junkie:
-Man #2 on tv:
-Man on tv:
-Narrator:
-Nurse:
-Nurse #1:
-Nurse #2:
-Paramedic #2:
-Paramedic 1:
-Vampire:
-Villager:
-Woman on tv:
+Bartender:		Ramesh
+Clerk:			Ramesh
+Coroner:		Sam M
+Demon:			Jack
+Doctor:			Matthew
+Junkie:			Ramesh
+Man #2 on tv:		Matthew:Man on TV 2
+Man on tv:		Jack:Man on TV 1
+Narrator:		Ramesh
+Nurse:			Nobody:Nurse 1
+Nurse #1:		Sam M:Nurse 1
+Nurse #2:		Jack
+Paramedic #2:		Jack:Paramedic 2
+Paramedic 1:		Ramesh
+Vampire:  		Sam M
+Villager:		Jack
+Woman on tv:		Sam M:Woman on TV
 
 * Two To Go (1) *
 Cop:
-Demon:
+Demon:			Jack
 Narrator:
 Officer:
 Patrol cop:
 
 * Grave (2) *
-Demon:
+Demon:			Jack
 Narrator:
 
 * End of casting *
