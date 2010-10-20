@@ -233,8 +233,9 @@ Man 2:			Matthew
 Narrator:		Jack
 
 * Entropy *
-Narrator:
-Vamp 2:
+Narrator:		Sally
+Vamp 2:			Jack:Vampire 2
+Vampire 1(NS):		Ramesh
 
 * Seeing Red *
 Audrew:
