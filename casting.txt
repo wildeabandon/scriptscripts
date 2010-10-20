@@ -203,24 +203,24 @@ Vamp:			Ralph:Vampire
 Woman:			Nobody
 Suvolte demon:		Mark
 
-* Hell's Bells *
-Caterer:
-Cousin carol:
-D'hoffryn:
-Demon:
-Demon teen:
-Josh:
-Karen:
-Krelvin:
-Manager:
-Mr. harris:
-Mrs. harris:
-Narrator:
-Old man:
-Sarah:
-Skanky goth girl:
-Tentacle demon:
-Uncle rory:
+* Hell's Bells * #Old man == Demon here. Casting a bit crazy!
+Caterer:       	      	Sally
+Cousin carol:		Ramesh
+D'hoffryn:		Matthew:D'Hoffryn
+Demon:			Nobody
+Demon teen:		Nick
+Josh:			Ralph
+Karen:			Nick
+Krelvin:		Ralph
+Manager:		Mark
+Mr. harris:		Jack
+Mrs. harris:		Sally
+Narrator:		Matthew
+Old man:		Ramesh
+Sarah:			Sam M
+Skanky goth girl:	Nick
+Tentacle demon:		Nick
+Uncle rory:		Mark
 
 * Normal Again *
 Doctor:			Ramesh
