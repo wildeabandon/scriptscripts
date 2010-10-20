@@ -322,6 +322,18 @@ def load_cast():
     del byperson['Nobody']
     return cast,byperson
 
+def showperson(who):
+    cast,byperson=load_cast()
+    p=byperson[who]
+    for ep in range(1,23):
+        print "%d:" % ep,
+        if ep in p:
+            for x in range(len(p[ep])-1):
+                print "%s," % (p[ep][x]),
+            print p[ep][-1]
+        else:
+            print "episode off"
+
 def showep(e):
     cast,byperson=load_cast()
     parts=cast[e].keys()
