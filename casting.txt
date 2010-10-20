@@ -18,7 +18,7 @@ Recurring parts:
 (3) Amy:		Sally
 (2) Watcher:		Nobody
 (2) Razor:		Jack
-(2) Lorraine:
+(2) Lorraine:		Sally
 (2) Katrina:		Sally
 (2) Gregor:		Nobody
 (2) Angel:		Nobody
@@ -222,15 +222,15 @@ Skanky goth girl:	Nick
 Tentacle demon:		Nick
 Uncle rory:		Mark
 
-* Normal Again *
+* Normal Again * 
 Doctor:			Ramesh
-Female doctor:
+Female doctor:		Sally
 Hank:			Sam PF
-Joyce:
-Man:
-Man 1:
-Man 2:
-Narrator:
+Joyce:			Sam M
+Man:			Nobody:Doctor
+Man 1:			Jack
+Man 2:			Matthew
+Narrator:		Jack
 
 * Entropy *
 Narrator:
