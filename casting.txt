@@ -223,6 +223,7 @@ Tentacle demon:		Nick
 Uncle rory:		Mark
 
 * Normal Again * 
+Anya:			Nobody
 Doctor:			Ramesh
 Female doctor:		Sally
 Hank:			Sam PF
@@ -271,14 +272,17 @@ Villager:		Jack
 Woman on tv:		Sam M:Woman on TV
 
 * Two To Go (1) *
-Cop:
+Warren:			Nobody
+Tara:			Nobody
+Cop:			Ramesh
 Demon:			Jack
-Narrator:
-Officer:
-Patrol cop:
+Narrator:		Sally
+Officer:		Nick
+Patrol cop:		Sam M
+Flame-fisted man(NS):	Nick
 
 * Grave (2) *
 Demon:			Jack
-Narrator:
+Narrator:		Sally
 
 * End of casting *
