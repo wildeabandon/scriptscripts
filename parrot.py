@@ -322,19 +322,40 @@ def load_cast():
     del byperson['Nobody']
     return cast,byperson
 
-def showperson(who):
+def writecast():
+    'write out a by-episode and by-person cast list'
+    cast,byperson=load_cast()
+    allparts,partsbyep,titles=get_partarrays()
+
+    f=open("casting_byepisode.txt","w")
+    for ep in range(1,23):
+        print >>f, "*%d: %s*" % (ep,titles[ep-1])
+        showep(ep,f)
+        print >>f
+    f.close()
+
+    f=open("casting_byperson.txt","w")
+    people=byperson.keys()
+    people.sort()
+    for who in people:
+        print >>f, "* %s *" % who
+        showperson(who,f)
+        print >>f
+    f.close()
+
+def showperson(who,f=sys.stdout):
     cast,byperson=load_cast()
     p=byperson[who]
     for ep in range(1,23):
-        print "%d:" % ep,
+        print >>f, "%d:" % ep,
         if ep in p:
             for x in range(len(p[ep])-1):
-                print "%s," % (p[ep][x]),
-            print p[ep][-1]
+                print >>f, "%s," % (p[ep][x]),
+            print >>f, p[ep][-1]
         else:
-            print "episode off"
+            print >>f, "episode off"
 
-def showep(e):
+def showep(e,f=sys.stdout):
     cast,byperson=load_cast()
     parts=cast[e].keys()
     parts.sort()
@@ -343,23 +364,23 @@ def showep(e):
         a=cast[e][p][0] #part name
         b=cast[e][p][1] #person
         if b!='' and b!='Nobody':
-            print "%s: %s" % (a,b)
+            print >>f, "%s: %s" % (a,b)
     #then the uncast
     for p in parts:
         a=cast[e][p][0] #part name
         b=cast[e][p][1] #person
         if b=='':
-            print a, "uncast"
+            print >>f, a, "uncast"
     #then who hasn't been used?
     slack=[]
     for p in byperson:
         if e not in byperson[p]:
             slack.append("%s (%d)" %(p,len(byperson[p].keys())))
     if len(slack)>0:
-        print "unused:",
+        print >>f, "episode off:",
         for x in range(len(slack)-1):
-            print "%s," % slack[x],
-        print slack[-1]
+            print >>f, "%s," % slack[x],
+        print >>f, slack[-1]
                         
 
 def unused():
