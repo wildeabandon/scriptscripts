@@ -284,5 +284,8 @@ Flame-fisted man(NS):	Nick
 * Grave (2) *
 Demon:			Jack
 Narrator:		Sally
+Earth monster 1(NS):	Sam PF
+Earth monster 2(NS):	Ramesh
+Truck driver(NS):	Nick
 
 * End of casting *
