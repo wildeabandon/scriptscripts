@@ -33,6 +33,8 @@ multiple-applications.
 *showperson(who): shows the parts for "who"
 *unused(): gives an episode count for those not in every episode thusfar
 *writecast(): writes out a by-person and by-episode cast list
+*preamble(): prepares the .tex file (preamble and suchlike), returns 3
+fds: the html to read, the tex and cast tex files to write.
 
 "Nobody" is a special-case casting for parts that we aren't going to
 need (e.g. because they appear in flashbacks). We'll need to

@@ -24,9 +24,9 @@ def preamble(e):
     along with a file to write cast-related LaTeX
     return is (html,tex,cast)
     '''
-    texpath="texified/ep%02d.tex" % e
-    castpath="texified/ep%02d_cast.tex" % e
-    htmlpath="buffy-2%02d.htm" % e
+    texpath="%s/ep%02d.tex" % (outdir,e)
+    castpath="%s/ep%02d_cast.tex" % (outdir,e)
+    htmlpath="%s/buffy-6%02d.htm" % (datadir,e)
     r=open(htmlpath,"r")
     w=open(texpath,"w")
     c=open(castpath,"w")
