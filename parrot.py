@@ -84,14 +84,15 @@ def castcommands(f,d):
         texname=d[k][2]
         print >>f, "\\newcommand{\\%s}{\\textbf{%s}}" % (texname,name)
 
-def casttable(f):
+def casttable(f,d):
     '''print a LaTeX-ed cast list'''
     print >>f, """\\subsection*{Cast List}
 \\begin{tabular}{ll}\\\\"""
-    keys=thiscast.keys()
+    keys=d.keys()
     keys.sort()
     for k in keys:
-        print >>f, "%s & %s\\\\" % (k,thiscast[k])
+        if d[k][1]!="Nobody":
+            print >>f, "%s & %s\\\\" % (d[k][0],d[k][1])
     print >>f, "\\end{tabular}"
 
 def ord_list():
@@ -557,7 +558,7 @@ def htmltotex(e):
 \\date{}
 \\maketitle
 """ % (e,titles[e+1])
-    casttable(ft)
+    casttable(ft,cast[e])
     parse_html(fh,ft)
     print >>ft, "\\end{document}"
     fh.close()

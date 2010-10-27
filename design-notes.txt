@@ -42,6 +42,7 @@ dictionary, specifically an member of the cast dictionary) which is
 the LaTeX command to typeset it.
 *castcommands(f,d): outputs a set of LaTeX macros to f that provide
 bold upper-case commands for each part
+*casttable(f,d): output a LaTeX cast list
 
 "Nobody" is a special-case casting for parts that we aren't going to
 need (e.g. because they appear in flashbacks). We'll need to
