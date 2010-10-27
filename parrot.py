@@ -436,6 +436,7 @@ def second_pass(fh,ft,epcast,pbe,allparts):
             l=re.sub(itreg,r"\\textit{\1}",l) #anything in <i> gets italiced
             l=re.sub(bqreg,"",l) #discard blockquote/code tags
             l=re.sub(qreg,r"``\1''",l) #"" -> ``''
+            l=l.replace('...',r'$\ldots$') #... -> tex ldots
             if '<' in l or '>' in l:
                 raise ValueError, "undealt with tags in line: %s" % l
             #Is this line a spoken line?
