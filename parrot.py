@@ -450,6 +450,40 @@ def first_pass(ph):
     parts=guess_parts(lines)
     return title,parts
 
+def second_pass(fh,ft,epcast,allparts):
+    '''converts the html lines in fh into TeX in ft'''
+    #italics regexp (?i)==make case-insensitive
+    itreg=r'(?i)<i>([^<]*)</i>'
+    #match open or close blockquote/code tags, which we discard
+    bqreg=r'(?i)(</?blockquote>)|(</?code>)'
+    #go forward to the <hr> element that marks the episode start
+    for line in fh:
+        if line.strip()[0:14].upper()=="<hr width=400>".upper():
+            break
+    lines=make_lines(fh)
+    for l in line:
+        if '<b>' in l or '<B>' in l:
+            print >>ft, "\\scene"
+        elif '<hr' in l or '<HR' in l:
+            pass
+        else:
+            l=re.sub(itreg,r"\text{\1}",l) #anything in <i> gets italiced
+            l=re.sub(bqreg,"",l) #discard blockquote/code tags
+            if '<' in l or '>' in l:
+                raise ValueError, "undealt with tags in line: %s" % l
+            #Is this line a spoken line?
+            ls=l.split(':')
+            if len(ls)>1:
+                part=' '.join(ls[0].split())
+                rest=': '.join(ls[1:]) #re-assemble rest of line
+            if len(ls)>1 and part.upper()==part: #spoken part
+                if part in allparts and allparts[part] in epcast:
+                    print >>ft, "\\{%s}: %s" % (epcast[allparts[part]][2],rest)
+                else:
+                    print >>ft, "\\textbf{%s}: %s" %(part,rest)
+            else: #not-spoken part
+                print >>f, "\\ti{%s}" % l
+                
 def make_lines(f):
     '''make_lines(f) -> array of lines from f
 
@@ -566,6 +600,7 @@ def htmltotex(e):
 \\maketitle
 """ % (e,titles[e+1])
     casttable(ft,cast[e])
+    second_pass(fh,ft,cast[e],allparts)
     parse_html(fh,ft)
     print >>ft, "\\end{document}"
     fh.close()
