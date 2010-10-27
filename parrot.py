@@ -33,6 +33,7 @@ def preamble(e):
         print >>sys.stderr, texpath, "already exists, giving up"
         c=open(castpath,"r")
         print >>sys.stderr, castpath, "already exists, giving up"
+        return
     except IOError:
         pass
     w=open(texpath,"w")
