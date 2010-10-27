@@ -441,7 +441,7 @@ def second_pass(fh,ft,epcast,allparts):
         elif '<hr' in l or '<HR' in l:
             pass
         else:
-            l=re.sub(itreg,r"\text{\1}",l) #anything in <i> gets italiced
+            l=re.sub(itreg,r"\\textit{\1}",l) #anything in <i> gets italiced
             l=re.sub(bqreg,"",l) #discard blockquote/code tags
             if '<' in l or '>' in l:
                 raise ValueError, "undealt with tags in line: %s" % l
