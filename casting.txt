@@ -38,7 +38,7 @@ Vamp:			Ramesh:Vampire
 * Bargaining (2) *
 Demon:			Ralph
 Doctor:			Nobody
-Homeowner:		Ramesh
+Homeowner:		Ramesh:Home-owner
 Narrator:		Sam PF
 
 * After Life *
