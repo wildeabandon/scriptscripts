@@ -516,55 +516,6 @@ def make_lines(f):
             midline=True
     return lines
 
-def parse_html(fh,ft):
-    '''turns fh (HTML file) into ft (TeX output)
-
-    removes garbage, macros up speech lines, etc.
-    '''
-    #first, pass over all the initial junk
-    for line in fh:
-        if line.strip()=="~~~~~~~~~~ Prologue ~~~~~~~~~~":
-            break
-    #then divide the rest into speech and staging, and output accordingly
-    speech=0
-    for line in fh:
-        if line.strip()=="":
-            print >>ft
-            speech=0
-        elif ': ' in line:
-            p=line.split(':')[0]
-            if len(p.split())>2:
-                continue #handle lines that don't start foo: 
-            if p=="Lyrics":
-                continue
-            #Some other special cases:
-            elif p=="Angelus":
-                p="Angel"
-            elif p=="Chief":
-                p="Police Chief"
-            elif p=="Mrs. Epps":
-                p="Mrs Epps"
-            #turn #s into spaces
-            p=p.replace('#',' ')
-            try:
-                print >>ft, "%s:" % texparts[p],
-            except KeyError:
-                print >>sys.stderr, "Warning, %s uncast(!)" % p
-                print >>ft, "\\textbf{%s}:" % p.upper(),
-            for l in line.split(':')[1:]:
-                print >>ft, l.strip(),
-            print >>ft
-            speech=1
-        elif "~~~" in line:
-            pass #ignore these lines
-        elif "</PRE>"==line.strip():
-            break #end of episode
-        else: #normal lines
-            if speech:
-                print >>ft, line.strip()
-            else:
-                print >>ft, "\\textit{%s}" % line.strip()
-
 def texcast(d):
     '''texcast(d): returns d with LaTeX-suitable command names
 
@@ -601,7 +552,6 @@ def htmltotex(e):
 """ % (e,titles[e+1])
     casttable(ft,cast[e])
     second_pass(fh,ft,cast[e],allparts)
-    parse_html(fh,ft)
     print >>ft, "\\end{document}"
     fh.close()
     ft.close()
