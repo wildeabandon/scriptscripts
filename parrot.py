@@ -552,11 +552,11 @@ def htmltotex(e):
     frobcast(e)
     castcommands(fc,d)
     fc.close()
-    print >>ft, """\\title{Episode %d(%d): %s}
+    print >>ft, """\\title{Episode %d: %s}
 \\author{}
 \\date{}
 \\maketitle
-""" % (e,eptoindex(e)+1,titles[eptoindex(e)])
+""" % (e,titles[e+1])
     casttable(ft)
     parse_html(fh,ft)
     print >>ft, "\\end{document}"
