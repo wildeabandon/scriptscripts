@@ -40,6 +40,8 @@ episode e: PARTIALLY DONE
 *texcast(d): adds an entry to each element in d (which is a
 dictionary, specifically an member of the cast dictionary) which is
 the LaTeX command to typeset it.
+*castcommands(f,d): outputs a set of LaTeX macros to f that provide
+bold upper-case commands for each part
 
 "Nobody" is a special-case casting for parts that we aren't going to
 need (e.g. because they appear in flashbacks). We'll need to

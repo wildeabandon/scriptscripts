@@ -76,18 +76,13 @@ def frobcast(e):
         else:
             thiscast["%s" % s]=cast[l[0]]
     
-def castcommands(f):
+def castcommands(f,d):
     '''output a set of LaTeX macros for typesetting the foo: lines'''
-    tt=string.maketrans('1234567890','abcdefghij')
-    for p in thiscast.iterkeys():
-        if p.find('(ns)')==-1: #exclude non-speakers
-            print >>f, "\\newcommand{\\%s}{\\textbf{%s}}" % \
-                  (p.upper().translate(tt,' '),p.upper())
-            texparts[p]="\\%s" % p.upper().translate(tt,' ')
-        #special case for Jenny, who appears as Jenny C in our casting
-            if p=="Jenny C":
-                texparts["Jenny"]=texparts["Jenny C"]
-
+    for k in d.iterkeys():
+        name=d[k][0]
+        name=name.upper().replace('(NS','') #block caps, trim "(NS)"
+        texname=d[k][2]
+        print >>f, "\\newcommand{\\%s}{\\textbf{%s}}" % (texname,name)
 
 def casttable(f):
     '''print a LaTeX-ed cast list'''
@@ -555,7 +550,7 @@ def htmltotex(e):
     fh,ft,fc=preamble(e)
     cast[e]=texcast(cast[e])
     frobcast(e)
-    castcommands(fc)
+    castcommands(fc,d)
     fc.close()
     print >>ft, """\\title{Episode %d(%d): %s}
 \\author{}
