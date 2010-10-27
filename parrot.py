@@ -430,6 +430,10 @@ def second_pass(fh,ft,epcast,allparts):
     itreg=r'(?i)<i>([^<]*)</i>'
     #match open or close blockquote/code tags, which we discard
     bqreg=r'(?i)(</?blockquote>)|(</?code>)'
+    #""regex, so we can make them tex-quotes ``''
+    qreg=r'"([^"]*)"'
+    #regex for things in paratheses in spoken lines (stage directions)
+    sdreg=r'\(([^)]*)\)'
     #go forward to the <hr> element that marks the episode start
     for line in fh:
         if line.strip()[0:14].upper()=="<hr width=400>".upper():
@@ -443,6 +447,7 @@ def second_pass(fh,ft,epcast,allparts):
         else:
             l=re.sub(itreg,r"\\textit{\1}",l) #anything in <i> gets italiced
             l=re.sub(bqreg,"",l) #discard blockquote/code tags
+            l=re.sub(qreg,r"``\1''",l) #"" -> ``''
             if '<' in l or '>' in l:
                 raise ValueError, "undealt with tags in line: %s" % l
             #Is this line a spoken line?
@@ -451,6 +456,8 @@ def second_pass(fh,ft,epcast,allparts):
                 part=' '.join(ls[0].split())
                 rest=': '.join(ls[1:]) #re-assemble rest of line
             if len(ls)>1 and part.upper()==part: #spoken part
+                #things in () are stage directions in spoken lines
+                rest=re.sub(sdreg,r"\sd{\1}",rest)
                 if part in allparts and allparts[part].name in epcast:
                     print >>ft, "\\%s: %s" % (epcast[allparts[part].name][2],rest)
                 else:
