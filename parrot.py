@@ -551,7 +551,7 @@ def htmltotex(e):
     fh,ft,fc=preamble(e)
     cast[e]=texcast(cast[e])
     frobcast(e)
-    castcommands(fc,d)
+    castcommands(fc,cast[e])
     fc.close()
     print >>ft, """\\title{Episode %d: %s}
 \\author{}
