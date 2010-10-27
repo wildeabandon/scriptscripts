@@ -435,7 +435,7 @@ def second_pass(fh,ft,epcast,allparts):
         if line.strip()[0:14].upper()=="<hr width=400>".upper():
             break
     lines=make_lines(fh)
-    for l in line:
+    for l in lines:
         if '<b>' in l or '<B>' in l:
             print >>ft, "\\scene"
         elif '<hr' in l or '<HR' in l:
@@ -456,7 +456,7 @@ def second_pass(fh,ft,epcast,allparts):
                 else:
                     print >>ft, "\\textbf{%s}: %s" %(part,rest)
             else: #not-spoken part
-                print >>f, "\\ti{%s}" % l
+                print >>ft, "\\ti{%s}" % l
                 
 def make_lines(f):
     '''make_lines(f) -> array of lines from f
