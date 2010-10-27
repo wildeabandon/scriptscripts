@@ -56,33 +56,6 @@ def eptoindex(e):
     e-=1
     return e
 
-def frobcast(e):
-    '''convert casting.py notation to suitable for script notation'''
-    global thiscast
-    multiples={}
-    loadcast()
-    thisep=eval("ep%d" % e)
-    for p in thisep:
-        #we want to frob characters with numbers in their names
-        #this strips spaces and checks for only letters remaining
-        if p.replace(' ','').isalpha():
-            thiscast[p]=cast[p]
-        else:
-            what=p.rstrip(string.digits+'.')
-            dictapp(multiples,what,p)
-    for what in multiples.iterkeys():
-        l=multiples[what]
-        l.sort()
-        if what=="Vamp":
-            s="Vampire"
-        else:
-            s=what
-        if len(l) > 1:
-            for n in range(len(l)):
-                thiscast["%s %d" % (s,n+1)]=cast[l[n]]
-        else:
-            thiscast["%s" % s]=cast[l[0]]
-    
 def castcommands(f,d):
     '''output a set of LaTeX macros for typesetting the foo: lines'''
     for k in d.iterkeys():
@@ -542,7 +515,6 @@ def htmltotex(e):
     allparts,partsbyep,titles=get_partarrays()
     fh,ft,fc=preamble(e)
     cast[e]=texcast(cast[e])
-    frobcast(e)
     castcommands(fc,cast[e])
     fc.close()
     print >>ft, """\\title{Episode %d: %s}
