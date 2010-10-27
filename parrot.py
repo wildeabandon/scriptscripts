@@ -437,7 +437,7 @@ def second_pass(fh,ft,epcast,allparts):
     lines=make_lines(fh)
     for l in lines:
         if '<b>' in l or '<B>' in l:
-            print >>ft, "\\scene"
+            print >>ft, "\n\\scene\n"
         elif '<hr' in l or '<HR' in l:
             pass
         else:
@@ -451,12 +451,13 @@ def second_pass(fh,ft,epcast,allparts):
                 part=' '.join(ls[0].split())
                 rest=': '.join(ls[1:]) #re-assemble rest of line
             if len(ls)>1 and part.upper()==part: #spoken part
-                if part in allparts and allparts[part] in epcast:
-                    print >>ft, "\\{%s}: %s" % (epcast[allparts[part]][2],rest)
+                if part in allparts and allparts[part].name in epcast:
+                    print >>ft, "\\%s: %s" % (epcast[allparts[part].name][2],rest)
                 else:
                     print >>ft, "\\textbf{%s}: %s" %(part,rest)
             else: #not-spoken part
                 print >>ft, "\\ti{%s}" % l
+            print >>ft #blank line between each "line", to make new paragraph
                 
 def make_lines(f):
     '''make_lines(f) -> array of lines from f
