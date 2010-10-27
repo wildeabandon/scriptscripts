@@ -528,14 +528,32 @@ def parse_html(fh,ft):
             else:
                 print >>ft, "\\textit{%s}" % line.strip()
 
+def texcast(d):
+    '''texcast(d): returns d with LaTeX-suitable command names
+
+    each value in the dictionary d should be a 2-element array.
+    A third element is added, which is a LaTeX-suitable command name
+    '''
+    #replace numbers with letters
+    tt=string.maketrans('1234567890','abcdefghij')
+    for k in d.iterkeys():
+        if len(d[k])==3: #already done
+            continue
+        name=d[k][0]
+        tex=name.upper()
+        if tex.isalpha()==False:
+            #translate numbers to letters, and trim .-/()#' and space characters
+            tex=tex.translate(tt,' ./-()#\'')
+            if tex.isalpha()==False:
+                raise ValueError, tex
+        d[k].append(tex)
+    return d
+
 def htmltotex(e):
-    #make sure these are blanked each time
-    global thiscast
-    thiscast={}
-    global texparts
-    texparts={}
-    #we may want to personalise scripts at some point...    
+    cast,byperson=load_cast()
+    allparts,partsbyep,titles=get_partarrays()
     fh,ft,fc=preamble(e)
+    cast[e]=texcast(cast[e])
     frobcast(e)
     castcommands(fc)
     fc.close()
