@@ -28,6 +28,13 @@ def preamble(e):
     castpath="%s/ep%02d_cast.tex" % (outdir,e)
     htmlpath="%s/buffy-6%02d.htm" % (datadir,e)
     r=open(htmlpath,"r")
+    try: #make sure we don't over-write anything
+        w=open(texpath,"r")
+        print >>sys.stderr, texpath, "already exists, giving up"
+        c=open(castpath,"r")
+        print >>sys.stderr, castpath, "already exists, giving up"
+    except IOError:
+        pass
     w=open(texpath,"w")
     c=open(castpath,"w")
     print >>w, "\input{preamble}"
