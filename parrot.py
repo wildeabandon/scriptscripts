@@ -424,7 +424,7 @@ def first_pass(ph):
     parts=guess_parts(lines)
     return title,parts
 
-def second_pass(fh,ft,epcast,allparts):
+def second_pass(fh,ft,epcast,pbe,allparts):
     '''converts the html lines in fh into TeX in ft'''
     #italics regexp (?i)==make case-insensitive
     itreg=r'(?i)<i>([^<]*)</i>'
@@ -434,6 +434,17 @@ def second_pass(fh,ft,epcast,allparts):
     qreg=r'"([^"]*)"'
     #regex for things in paratheses in spoken lines (stage directions)
     sdreg=r'\(([^)]*)\)'
+    #Now build a list of find,replace pairs for the stage directions
+    #so we can convert them to their upper-case versions
+    relist=[]
+    inrelist=[]
+    for p in pbe:
+        name=allparts[p].name
+        if name in epcast and name not in inrelist:
+            rf=r'(?i)(^| )%s(.?) ' % name
+            rr=r'\1\%s\2 ~' % epcast[name][2]
+            inrelist.append(name)
+            relist.append( (rf,rr) )
     #go forward to the <hr> element that marks the episode start
     for line in fh:
         if line.strip()[0:14].upper()=="<hr width=400>".upper():
@@ -463,6 +474,10 @@ def second_pass(fh,ft,epcast,allparts):
                 else:
                     print >>ft, "\\textbf{%s}: %s" %(part,rest)
             else: #not-spoken part
+                for rf,rr in relist:
+                    #try and spot all the cast in stage directions
+                    #and replace with the block-bold command
+                    l=re.sub(rf,rr,l)
                 print >>ft, "\\ti{%s}" % l
             print >>ft #blank line between each "line", to make new paragraph
                 
@@ -530,9 +545,9 @@ def htmltotex(e):
 \\author{}
 \\date{}
 \\maketitle
-""" % (e,titles[e+1])
+""" % (e,titles[e-1])
     casttable(ft,cast[e])
-    second_pass(fh,ft,cast[e],allparts)
+    second_pass(fh,ft,cast[e],partsbyep[e-1],allparts)
     print >>ft, "\\end{document}"
     fh.close()
     ft.close()

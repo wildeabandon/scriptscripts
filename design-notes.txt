@@ -4,9 +4,9 @@ This code is based on the python I used for Buffy Season 2, hopefully
 with some enhancements, and also with changes to cope with the
 differences in the HTML used to typeset the Season 6 scripts.
 
-The initial git checkin is frob.py from Buffy Season 2, and I've
-slowly added things to it - at some point I'll throw away the old
-functions. 
+The initial git checkin was frob.py from Buffy Season 2, and I've
+slowly added things to it - as old bits have become clearly obsolete,
+I've removed them.
 
 Current State:
 
@@ -43,9 +43,9 @@ the LaTeX command to typeset it.
 *castcommands(f,d): outputs a set of LaTeX macros to f that provide
 bold upper-case commands for each part
 *casttable(f,d): output a LaTeX cast list
-*second_pass(fh,ft): actually does the work of outputting a .tex file,
-using make_lines and the casting arrays to highlight actions, stage
-directions, and so on.
+*second_pass(fh,ft,epcast,pbe,allparts): actually does the work of
+outputting a .tex file, using make_lines and the casting arrays to
+highlight actions, stage directions, and so on.
 
 "Nobody" is a special-case casting for parts that we aren't going to
 need (e.g. because they appear in flashbacks). We'll need to
