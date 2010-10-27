@@ -8,14 +8,6 @@ basedir=os.path.expanduser("~/tex/scripts/buffys6")
 datadir=basedir+"/html"
 outdir=basedir+"/tex"
 
-#beware of namespace clashes doing this
-#from casting import *
-
-#part -> person mapping
-thiscast={}
-#part -> LaTeX command mapping
-texparts={}
-
 def preamble(e):
     '''preamble(e)->get ready to start an episode
 
@@ -41,21 +33,6 @@ def preamble(e):
     print >>w, "\input{preamble}"
     print >>w, "\input{ep%02d_cast}" % e
     return (r,w,c)
-
-def eptoindex(e):
-    '''returns the index in the eps array that corresponds to an episode
-
-    Calculates which subscript in eps[] you want for episode number e
-    '''
-    if e==12 or e==20:
-        raise ValueError("We don't have episodes 12 or 20")
-    #take into account the missing episodes
-    if e>20:
-        e-=1
-    if e>12:
-        e-=1
-    e-=1
-    return e
 
 def castcommands(f,d):
     '''output a set of LaTeX macros for typesetting the foo: lines'''
