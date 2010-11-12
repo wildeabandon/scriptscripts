@@ -117,7 +117,7 @@ Traffic warden (NS):	Jack
 * Tabula Rasa *
 Demon:			Nobody
 Narrator:		Sam PF
-Shark demon:		Jack:Loan Shark
+Shark demon:		Jack:Teeth
 Vamp: 			Nobody
 Vamp 1:			Ramesh:Vampire 1
 Vamp 2:			Sally:Vampire 2

@@ -405,8 +405,8 @@ def second_pass(fh,ft,epcast,pbe,allparts):
     '''converts the html lines in fh into TeX in ft'''
     #italics regexp (?i)==make case-insensitive
     itreg=r'(?i)<i>([^<]*)</i>'
-    #match open or close blockquote/code tags, which we discard
-    bqreg=r'(?i)(</?blockquote>)|(</?code>)'
+    #match open or close blockquote/code/ul/li tags, which we discard
+    bqreg=r'(?i)(</?blockquote>)|(</?code>)|(</?ul>)|(</?li>)'
     #""regex, so we can make them tex-quotes ``''
     qreg=r'"([^"]*)"'
     #regex for things in paratheses in spoken lines (stage directions)
