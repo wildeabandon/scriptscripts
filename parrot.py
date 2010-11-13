@@ -38,7 +38,7 @@ def castcommands(f,d):
     '''output a set of LaTeX macros for typesetting the foo: lines'''
     for k in d.iterkeys():
         name=d[k][0]
-        name=name.upper().replace('(NS','') #block caps, trim "(NS)"
+        name=name.upper().replace('(NS)','') #block caps, trim "(NS)"
         texname=d[k][2]
         print >>f, "\\newcommand{\\%s}{\\textbf{%s}}" % (texname,name)
 
