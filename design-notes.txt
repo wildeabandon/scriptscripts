@@ -58,6 +58,11 @@ Class Part:
 Class EpCount:
  excends tuple - lets you sort by x[0], which should be an int.
 
+Caveats:
+
+it doesn't deal with some tags (I had to edit episode 13 by hand to
+fix it).
+
 Parts:
 
 We need to know which parts are different in each episode
