@@ -406,8 +406,8 @@ def second_pass(fh,ft,epcast,pbe,allparts):
     #italics regexp (?i)==make case-insensitive
     itreg=r'(?i)<i>([^<]*)</i>'
     #match open or close blockquote/code/ul/li tags, which we discard
-    #Also unpaired <i> tags
-    bqreg=r'(?i)(</?blockquote>)|(</?code>)|(</?ul>)|(</?li>)|(</?i>)'
+    #Also unpaired <i> tags, and the very rare </P>
+    bqreg=r'(?i)(</?blockquote>)|(</?code>)|(</?ul>)|(</?li>)|(</?i>)|(</p>)'
     #""regex, so we can make them tex-quotes ``''
     qreg=r'"([^"]*)"'
     #regex for things in paratheses in spoken lines (stage directions)
