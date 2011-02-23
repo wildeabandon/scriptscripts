@@ -397,6 +397,8 @@ def first_pass(ph):
     for line in f:
         if line.strip()[0:14].upper()=="<hr width=400>".upper():
             break
+        elif line.strip()[0:17].upper()=='<hr WIDTH="100%">'.upper():
+            break
     lines=make_lines(f)
     parts=guess_parts(lines)
     return title,parts
