@@ -4,7 +4,7 @@
 import os,string,sys,os.path,re,cPickle
 
 #edit these as appropriate
-basedir=os.path.expanduser("~/tex/scripts/buffys6")
+basedir=os.path.expanduser("~/tex/scripts/buffys5")
 datadir=basedir+"/html"
 outdir=basedir+"/tex"
 
@@ -18,7 +18,7 @@ def preamble(e):
     '''
     texpath="%s/ep%02d.tex" % (outdir,e)
     castpath="%s/ep%02d_cast.tex" % (outdir,e)
-    htmlpath="%s/buffy-6%02d.htm" % (datadir,e)
+    htmlpath="%s/buffy-5%02d.htm" % (datadir,e)
     r=open(htmlpath,"r")
     try: #make sure we don't over-write anything
         w=open(texpath,"r")
@@ -55,7 +55,7 @@ def casttable(f,d):
 
 def ord_list():
     '''returns a list of the .htm files'''
-    x=["%s/buffy-6%02d.htm" % (datadir,x) for x in range(1,23) ]
+    x=["%s/buffy-5%02d.htm" % (datadir,x) for x in range(1,23) ]
     return x
 
 def guess_parts(lines):
@@ -184,7 +184,7 @@ def get_castlist():
             byapp.append( EpCount( (n,x.name.lower().capitalize()) ) )
     byapp.sort(reverse=True)
     f=open("casting.txt","w")
-    print >>f, "Buffy Season 6 - Cast List\n\nRecurring parts:"
+    print >>f, "Buffy Season 5 - Cast List\n\nRecurring parts:"
     prev=None
     for p in byapp:
         if prev and p==prev:
