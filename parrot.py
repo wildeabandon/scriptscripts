@@ -131,7 +131,7 @@ def add_part(name,episode,allparts,multiple=None):
 def get_partarrays():
     '''either loads or generates the allparts,partsbyep and titles arrays'''
     try:
-        f=open("allparts.dat","rb")
+        f=open(basedir+"/allparts.dat","rb")
         pickle=cPickle.Unpickler(f)
         allparts=pickle.load()
         partsbyep=pickle.load()
@@ -157,7 +157,7 @@ def gen_partarrays():
         partsbyep.append(parts)
         titles.append(title)
         ep+=1
-    f=open("allparts.dat","wb")
+    f=open(basedir+"/allparts.dat","wb")
     pickle=cPickle.Pickler(f,-1)
     pickle.dump(allparts)
     pickle.dump(partsbyep)
@@ -183,7 +183,7 @@ def get_castlist():
         if x.real==True and n>1 and x.multiple==False:
             byapp.append( EpCount( (n,x.name.lower().capitalize()) ) )
     byapp.sort(reverse=True)
-    f=open("casting.txt","w")
+    f=open(basedir+"/casting.txt","w")
     print >>f, "Buffy Season 5 - Cast List\n\nRecurring parts:"
     prev=None
     for p in byapp:
@@ -212,7 +212,7 @@ def load_cast():
     allparts,partsbyep,titles=get_partarrays()
     cast={}
     byperson={}
-    f=open("casting.txt","r")
+    f=open(basedir+"/casting.txt","r")
     #discard the first three lines
     discard=f.readline(); discard=f.readline(); discard=f.readline()
     multiples={}
@@ -281,14 +281,14 @@ def writecast():
     cast,byperson=load_cast()
     allparts,partsbyep,titles=get_partarrays()
 
-    f=open("casting_byepisode.txt","w")
+    f=open(basedir+"/casting_byepisode.txt","w")
     for ep in range(1,23):
         print >>f, "*%d: %s*" % (ep,titles[ep-1])
         showep(ep,f)
         print >>f
     f.close()
 
-    f=open("casting_byperson.txt","w")
+    f=open(basedir+"/casting_byperson.txt","w")
     people=byperson.keys()
     people.sort()
     for who in people:
@@ -372,8 +372,8 @@ def fix_parts():
     allparts["VOICE"].real=False
     
     #now save the new versions
-    os.rename("allparts.dat","allparts.dat.bak")
-    f=open("allparts.dat","wb")
+    os.rename(basedir+"/allparts.dat",basedir+"/allparts.dat.bak")
+    f=open(basedir+"/allparts.dat","wb")
     pickle=cPickle.Pickler(f,-1)
     pickle.dump(allparts)
     pickle.dump(partsbyep)
