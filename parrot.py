@@ -181,7 +181,9 @@ def get_castlist():
             byapp.append( EpCount( (n,x.name.lower().capitalize()) ) )
     byapp.sort(reverse=True)
     f=open(basedir+"/casting.txt","w")
+    g=open(basedir+"/verbosecasting.txt","w")
     print >>f, "Buffy Season 5 - Cast List\n\nRecurring parts:"
+    print >>g, "Buffy Season 5 - Cast List\n\n"
     prev=None
     for p in byapp:
         if prev and p==prev:
@@ -192,6 +194,7 @@ def get_castlist():
     print >>f
     for ep in range(1,23):
         print >>f, "* %s *" % (titles[ep-1])
+        print >>g, "* %s *" % (titles[ep-1])
         parts=partsbyep[ep-1]
         parts.sort()
         names=[]
@@ -202,8 +205,12 @@ def get_castlist():
                 if x.name.lower().capitalize() not in names:
                     print >>f, "%s:" % (x.name.lower().capitalize())
                     names.append(x.name.lower().capitalize())
+            if x.real==True:
+                print >>g, x.name.lower().capitalize()
         print >>f
+        print >>g
     f.close()
+    g.close()
 
 def load_cast():
     allparts,partsbyep,titles=get_partarrays()
