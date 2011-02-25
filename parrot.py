@@ -75,7 +75,9 @@ def guess_parts(lines):
 class Part:
     def __init__(self,name,episode,multiple=None):
         self.name=name
-        if ' ' in self.name:
+        if self.name[-3:]==" VO" or if "VOICEOVER" in self.name:
+            self.real=False
+        elif ' ' in self.name:
             ans=raw_input("%s a real part? " % name)
             if ans.upper().strip()=="Y":
                 self.real=True
