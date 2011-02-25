@@ -169,8 +169,8 @@ def gen_partarrays():
 
 def get_castlist():
     '''write out a single list of the entire cast'''
-#    print >>sys.stderr, "Cast list already exists. Don't over-write it!"
-#    return
+    print >>sys.stderr, "Cast list already exists. Don't over-write it!"
+    return
     allparts,partsbyep,titles=get_partarrays()
     byapp=[]
     parts=allparts.keys()
