@@ -96,8 +96,7 @@ class Part:
             self.checked=True
             self.multiple=multiple
     def appear(self,episode):
-        if self.checked==True or ( self.firstep==1 and episode==2 ) \
-               or ( self.firstep==21 and episode==22 ) :
+        if self.checked==True:
             self.appearances.append(episode)
         elif self.real==False: #We assume any not-real parts aren't multiple
             self.checked=True
