@@ -177,10 +177,6 @@ def get_castlist():
     for p in parts:
         x=allparts[p]
         n=len(x.appearances)
-        #deal with parts that are just in 1,2 or 21,22
-        if ( x.appearances==[1,2] or x.appearances==[21,22] ) \
-           and x.checked==False:
-            x.multiple=False
         if x.real==True and n>1 and x.multiple==False:
             byapp.append( EpCount( (n,x.name.lower().capitalize()) ) )
     byapp.sort(reverse=True)
