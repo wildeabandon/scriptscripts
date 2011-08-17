@@ -4,7 +4,8 @@
 
 import urllib,re,os.path
 
-datadir=os.path.expanduser("~/tex/scripts/buffys5/html_buffyology")
+#datadir=os.path.expanduser("~/tex/scripts/buffys5/html_buffyology")
+datadir=os.path.expanduser("~/tex/scripts/buffy_all")
 
 def geteppage(which):
     url="http://www.buffyology.com/ep%d/" % which
@@ -24,7 +25,8 @@ def writeephtml(htmldir,which):
     f.close()
 
 def getseries5():
-    for ep in range(79,101): #season 5 was episodes 79-100
+#    for ep in range(79,101): #season 5 was episodes 79-100
+    for ep in range(1,145): #every episode!
         writeephtml(datadir,ep)
 
 if __name__=="__main__":
