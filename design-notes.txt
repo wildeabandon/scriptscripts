@@ -26,18 +26,22 @@ No place like home (5) and Fool for love (7) are typeset differently
 buffy-vs-angel.com may be easier to special-case? They're HTML too,
 and not too useful.
 
-Buffology.com looks like it might well have a more standardised HTML
-format; try that?
+Buffyology.com looks like it might well have a more standardised HTML
+format; try that, in a buffyology branch
 
 Current State:
+
+-updated for buffyology-
 
 * ord_list() returns the correctly-ordered paths to each episode's HTML
 * first_pass(x) returns the title of x (which should be a path), and
 will also return a list of probably-parts
+* guess_parts(f) looks for parts, which are block-capitals in h4 tags
+
+-not yet updated-
+
 * make_lines(f) splits f (to EOF) into "lines", i.e. ignoring \n and
 instead breaking where there is <{p,P,br,BR}>
-* guess_parts(lines) looks for parts (identified by being all-upper-case
-strings before : in a line
 * get_castlist(): calls first_pass on each episode in turn, generates
 a list of each episode, in turn being a title,cast tuple. Writes out a
 master cast-list file (contains each part only once). Also outputs

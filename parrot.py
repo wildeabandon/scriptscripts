@@ -64,18 +64,17 @@ def ord_list():
         paths.append(g[0])
     return paths
 
-def guess_parts(lines):
-    '''guesses what the parts in lines are'''
+def guess_parts(f):
+    '''guesses what the parts in f are'''
+    #parts are in <h4> tags
+    partre=re.compile(r'<h4>([^<]+)</h4>',re.I)
     parts=[]
-    for l in lines:
-        l=l.split(':')
-        if len(l)>1:
-            p=' '.join(l[0].split())
-            if p.upper()==p:
-                if p[:12]=="<BLOCKQUOTE>":
-                    p=p[12:]
-                if p not in parts:
-                    parts.append(p)
+    for line in f:
+        m=partre.search(line)
+        if m:
+            part=m.group(1)
+            if part not in parts:
+                parts.append(p)
     return parts
 
 class Part:
@@ -397,20 +396,15 @@ def first_pass(ph):
     specifically, it extracts the episode title, and works out what
     the cast list should be
     '''
+    titlere=re.compile(r'<h1>([^<]+)</h1>',re.I)
     f=open(ph,"r")
     #look for the title
     for line in f:
-        if line.strip()[0:7]=="<title>":
-            title=line.strip().split('|')[2].split('<')[0].strip()
-            break
-    #now go forward to the <hr> element that marks the episode start
-    for line in f:
-        if line.strip()[0:14].upper()=="<hr width=400>".upper():
-            break
-        elif line.strip()[0:17].upper()=='<hr WIDTH="100%">'.upper():
-            break
-    lines=make_lines(f)
-    parts=guess_parts(lines)
+        tm=titlere.search(line)
+        if tm:
+            title=tm.group(1)
+    parts=guess_parts(f)
+    f.close()
     return title,parts
 
 def second_pass(fh,ft,epcast,pbe,allparts):
