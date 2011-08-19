@@ -29,27 +29,29 @@ and not too useful.
 Buffyology.com looks like it might well have a more standardised HTML
 format; try that, in a buffyology branch
 
+Create a new state directory to put things like allparts.dat in
+
 Current State:
 
 -updated for buffyology-
 
 * ord_list() returns the correctly-ordered paths to each episode's HTML
 * first_pass(x) returns the title of x (which should be a path), and
-will also return a list of probably-parts
-* guess_parts(f) looks for parts, which are block-capitals in h4 tags
+will also return a list of probably-parts. Calls the following function:
+*** guess_parts(f) looks for parts, which are block-capitals in h4 tags
+* get_castlist(): calls first_pass on each episode in turn, generates
+a list of each episode, in turn being a title,cast tuple. Writes out a
+master cast-list file (contains each part only once). Also outputs
+verbosecasting.txt, which contains the full cast list for every
+episode. Calls the following two functions:
+***gen_partarrays(): creates Part objects for every part, and produces
+three arrays of parts. Also pickles these to disk
+***get_partarrays(): either loads the pickles, or calls gen_partarrays()
 
 -not yet updated-
 
 * make_lines(f) splits f (to EOF) into "lines", i.e. ignoring \n and
 instead breaking where there is <{p,P,br,BR}>
-* get_castlist(): calls first_pass on each episode in turn, generates
-a list of each episode, in turn being a title,cast tuple. Writes out a
-master cast-list file (contains each part only once). Also outputs
-verbosecasting.txt, which contains the full cast list for every
-episode. Currently disabled, so we can start working on the casting itself.
-*gen_partarrays(): creates Part objects for every part, and produces
-three arrays of parts. Also pickles these to disk
-*get_partarrays(): either loads the pickles, or calls gen_partarrays()
 *fix_parts(): this applys some fixes to the members of the allparts
 and partsbyep arrays, and then re-saves the new Pickle. We'll need to
 comment out fixes once applied, to avoid attempted

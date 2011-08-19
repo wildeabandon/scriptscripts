@@ -5,6 +5,7 @@ import os,string,sys,os.path,re,cPickle,glob
 
 #edit these as appropriate
 basedir=os.path.expanduser("~/tex/scripts/buffys5")
+statedir=basedir+"/state"
 datadir=basedir+"/html_buffyology"
 outdir=basedir+"/tex"
 
@@ -74,7 +75,7 @@ def guess_parts(f):
         if m:
             part=m.group(1)
             if part not in parts:
-                parts.append(p)
+                parts.append(part)
     return parts
 
 class Part:
@@ -137,7 +138,7 @@ def add_part(name,episode,allparts,multiple=None):
 def get_partarrays():
     '''either loads or generates the allparts,partsbyep and titles arrays'''
     try:
-        f=open(basedir+"/allparts.dat","rb")
+        f=open(statedir+"/allparts.dat","rb")
         pickle=cPickle.Unpickler(f)
         allparts=pickle.load()
         partsbyep=pickle.load()
@@ -163,7 +164,7 @@ def gen_partarrays():
         partsbyep.append(parts)
         titles.append(title)
         ep+=1
-    f=open(basedir+"/allparts.dat","wb")
+    f=open(statedir+"/allparts.dat","wb")
     pickle=cPickle.Pickler(f,-1)
     pickle.dump(allparts)
     pickle.dump(partsbyep)
@@ -174,8 +175,6 @@ def gen_partarrays():
 
 def get_castlist():
     '''write out a single list of the entire cast'''
-    print >>sys.stderr, "Cast list already exists. Don't over-write it!"
-    return
     allparts,partsbyep,titles=get_partarrays()
     byapp=[]
     parts=allparts.keys()
@@ -185,8 +184,8 @@ def get_castlist():
         if x.real==True and n>1 and x.multiple==False:
             byapp.append( EpCount( (n,x.name.lower().capitalize()) ) )
     byapp.sort(reverse=True)
-    f=open(basedir+"/casting.txt","w")
-    g=open(basedir+"/verbosecasting.txt","w")
+    f=open(statedir+"/casting.txt","w")
+    g=open(statedir+"/verbosecasting.txt","w")
     print >>f, "Buffy Season 5 - Cast List\n\nRecurring parts:"
     print >>g, "Buffy Season 5 - Cast List\n\n"
     prev=None
@@ -403,6 +402,7 @@ def first_pass(ph):
         tm=titlere.search(line)
         if tm:
             title=tm.group(1)
+            break
     parts=guess_parts(f)
     f.close()
     return title,parts
