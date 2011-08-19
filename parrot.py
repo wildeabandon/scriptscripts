@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 #Code to (hopefully) un-HTML and TeX up Buffy scripts
 
-import os,string,sys,os.path,re,cPickle
+import os,string,sys,os.path,re,cPickle,glob
 
 #edit these as appropriate
 basedir=os.path.expanduser("~/tex/scripts/buffys5")
-datadir=basedir+"/html"
+datadir=basedir+"/html_buffyology"
 outdir=basedir+"/tex"
 
 def preamble(e):
@@ -55,8 +55,14 @@ def casttable(f,d):
 
 def ord_list():
     '''returns a list of the .htm files'''
-    x=["%s/buffy-5%02d.htm" % (datadir,x) for x in range(1,23) ]
-    return x
+    paths=[]
+    for x in range(1,23):
+        pattern="%s/%03d-5-%02d-*.html" % (datadir,x+78,x)
+        g=glob.glob(pattern)
+        if len(g)!=1:
+            sys.exit("Pattern %s matched %d paths" % (pattern,len(g)))
+        paths.append(g[0])
+    return paths
 
 def guess_parts(lines):
     '''guesses what the parts in lines are'''
