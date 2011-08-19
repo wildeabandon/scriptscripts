@@ -2,11 +2,32 @@
 
 This code is based on the python I used for Buffy Season 2, hopefully
 with some enhancements, and also with changes to cope with the
-differences in the HTML used to typeset the Season 6 scripts.
+differences in the HTML used to typeset the Season 6 scripts. The
+final version of the season 6 code (as used) was tagged "BuffyS6", so
+could be gone back to at any point.
 
 The initial git checkin was frob.py from Buffy Season 2, and I've
 slowly added things to it - as old bits have become clearly obsolete,
 I've removed them.
+
+At the point I moved onto season 5, I created a season5 branch, to
+which all the Season-5 work will be committed.
+
+Workflow:
+
+First, call get_castlist() to guess the parts from each episode, and
+produce a casting.txt file. Check that looks sane, and if not, go back
+and look at guess_parts/first_pass et al
+
+*FAIL*
+
+No place like home (5) and Fool for love (7) are typeset differently
+(and, indeed, not even like each other) - text files from
+buffy-vs-angel.com may be easier to special-case? They're HTML too,
+and not too useful.
+
+Buffology.com looks like it might well have a more standardised HTML
+format; try that?
 
 Current State:
 
@@ -19,8 +40,9 @@ instead breaking where there is <{p,P,br,BR}>
 strings before : in a line
 * get_castlist(): calls first_pass on each episode in turn, generates
 a list of each episode, in turn being a title,cast tuple. Writes out a
-master cast-list file (contains each part only once). Currently
-disabled, so we can start working on the casting itself.
+master cast-list file (contains each part only once). Also outputs
+verbosecasting.txt, which contains the full cast list for every
+episode. Currently disabled, so we can start working on the casting itself.
 *gen_partarrays(): creates Part objects for every part, and produces
 three arrays of parts. Also pickles these to disk
 *get_partarrays(): either loads the pickles, or calls gen_partarrays()
