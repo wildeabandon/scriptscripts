@@ -175,6 +175,10 @@ def gen_partarrays():
 
 def get_castlist():
     '''write out a single list of the entire cast'''
+    if os.path.exists(statedir+"/casting.txt") \
+            or os.path.exists(statedir+"/verbosecasting.txt","w"):
+        print >>sys.stderr, "Casting files exist; will not over-write"
+        return
     allparts,partsbyep,titles=get_partarrays()
     byapp=[]
     parts=allparts.keys()
