@@ -89,12 +89,6 @@ class Part:
         self.name=name
         if self.name[-3:]==" VO" or "VOICEOVER" in self.name:
             self.real=False
-        elif ' ' in self.name:
-            ans=raw_input("%s a real part? " % name)
-            if ans.upper().strip()=="Y":
-                self.real=True
-            else:
-                self.real=False
         else:
             if name=="ALL" or name=="BUFFYBOT" \
                    or name=="BOTH" or '/' in name:
