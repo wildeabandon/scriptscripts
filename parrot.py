@@ -78,8 +78,10 @@ def guess_parts(f):
         m=partre.search(line)
         if m:
             part=m.group(1)
-            if part not in parts:
+            if part not in parts and part != "I--":
                 parts.append(part)
+        elif "<p>911 OPERATOR</p>" in line and "911 OPERATOR" not in parts:
+            parts.append("911 OPERATOR")
     return parts
 
 class Part:
