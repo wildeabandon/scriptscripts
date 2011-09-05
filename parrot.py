@@ -65,6 +65,10 @@ def ord_list():
         paths.append(g[0])
     return paths
 
+#complications: spurious part (I--), and some parts end up in <p> tags
+#e.g. 911 operator in "the body" (actually, that may be the only one)
+#grep -E '<p>[[:upper:] 01-9]+</p>' ~/tex/scripts/buffys5/html_buffyology/* | less
+#(?:) is a non-capturing grouping operator
 def guess_parts(f):
     '''guesses what the parts in f are'''
     #parts are in <h4> tags
