@@ -224,7 +224,7 @@ def load_cast():
     allparts,partsbyep,titles=get_partarrays()
     cast={}
     byperson={}
-    f=open(basedir+"/casting.txt","r")
+    f=open(statedir+"/casting.txt","r")
     #discard the first three lines
     discard=f.readline(); discard=f.readline(); discard=f.readline()
     multiples={}
