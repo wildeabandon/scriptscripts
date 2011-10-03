@@ -217,6 +217,7 @@ def get_castlist():
                 print >>g, x.name.lower().capitalize()
         print >>f
         print >>g
+    print >>f, "* End of casting *" #load_cast needs this
     f.close()
     g.close()
 
