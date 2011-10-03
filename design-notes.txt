@@ -31,6 +31,12 @@ format; try that, in a buffyology branch
 
 Create a new state directory to put things like allparts.dat in
 
+casting.txt has been edited to include NS roles and the like
+
+showep et al have a bug that they infer the list of people invited
+from casting.txt, so if someone has no parts at all, they don't show
+up in the list of people uncast in a particular episode.
+
 Current State:
 
 -updated for buffyology-
@@ -47,6 +53,8 @@ episode. Calls the following two functions:
 ***gen_partarrays(): creates Part objects for every part, and produces
 three arrays of parts. Also pickles these to disk
 ***get_partarrays(): either loads the pickles, or calls gen_partarrays()
+*load_cast(): parses casting.txt, working out a cast for each episode
+*writecast(): writes out a by-person and by-episode cast list
 
 -not yet updated-
 
@@ -56,11 +64,9 @@ instead breaking where there is <{p,P,br,BR}>
 and partsbyep arrays, and then re-saves the new Pickle. We'll need to
 comment out fixes once applied, to avoid attempted
 multiple-applications.
-*load_cast(): parses casting.txt, working out a cast for each episode
 *showep(e): shows the cast for episode e
 *showperson(who): shows the parts for "who"
 *unused(): gives an episode count for those not in every episode thusfar
-*writecast(): writes out a by-person and by-episode cast list
 *preamble(e): prepares the .tex file (preamble and suchlike), returns 3
 fds: the html to read, the tex and cast tex files to write.
 *htmltotex(e): function that produces a .tex file (and cast .tex) for
