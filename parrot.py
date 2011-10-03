@@ -297,7 +297,7 @@ def writecast():
     f=open(basedir+"/casting_byepisode.txt","w")
     for ep in range(1,23):
         print >>f, "*%d: %s*" % (ep,titles[ep-1])
-        showep(ep,f)
+        showep(ep,f,showslack=False)
         print >>f
     f.close()
 
@@ -322,7 +322,7 @@ def showperson(who,f=sys.stdout):
         else:
             print >>f, "episode off"
 
-def showep(e,f=sys.stdout):
+def showep(e,f=sys.stdout,showslack=True):
     cast,byperson=load_cast()
     parts=cast[e].keys()
     parts.sort()
@@ -343,7 +343,7 @@ def showep(e,f=sys.stdout):
     for p in byperson:
         if e not in byperson[p]:
             slack.append("%s (%d)" %(p,len(byperson[p].keys())))
-    if len(slack)>0:
+    if len(slack)>0 and showslack:
         print >>f, "episode off:",
         for x in range(len(slack)-1):
             print >>f, "%s," % slack[x],
