@@ -7,19 +7,26 @@ import os,string,sys,os.path,re,cPickle,glob
 basedir=os.path.expanduser("~/tex/scripts/buffys5")
 statedir=basedir+"/state"
 datadir=basedir+"/html_buffyology"
-outdir=basedir+"/tex"
+outdir=basedir+"/latex"
+
+htmlpaths=[]
 
 def preamble(e):
     '''preamble(e)->get ready to start an episode
 
-    \inputes preamble.tex in the appropriate .tex file,
+    \inputs preamble.tex in the appropriate .tex file,
     and opens that for writing, and the html for reading,
     along with a file to write cast-related LaTeX
     return is (html,tex,cast)
     '''
+    global htmlpaths
+
+    if htmlpaths==[]:
+        htmlpaths=ord_list()
+
     texpath="%s/ep%02d.tex" % (outdir,e)
     castpath="%s/ep%02d_cast.tex" % (outdir,e)
-    htmlpath="%s/buffy-5%02d.htm" % (datadir,e)
+    htmlpath=htmlpaths[e-1]
     r=open(htmlpath,"r")
     try: #make sure we don't over-write anything
         w=open(texpath,"r")

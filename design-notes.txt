@@ -58,6 +58,8 @@ three arrays of parts. Also pickles these to disk
 *showep(e): shows the cast for episode e
 *showperson(who): shows the parts for "who"
 *unused(): gives an episode count for those not in every episode thusfar
+*preamble(e): prepares the .tex file (preamble and suchlike), returns 3
+fds: the html to read, the tex and cast tex files to write.
 
 -not yet updated-
 
@@ -67,8 +69,6 @@ instead breaking where there is <{p,P,br,BR}>
 and partsbyep arrays, and then re-saves the new Pickle. We'll need to
 comment out fixes once applied, to avoid attempted
 multiple-applications.
-*preamble(e): prepares the .tex file (preamble and suchlike), returns 3
-fds: the html to read, the tex and cast tex files to write.
 *htmltotex(e): function that produces a .tex file (and cast .tex) for
 episode e: PARTIALLY DONE
 *texcast(d): adds an entry to each element in d (which is a
