@@ -58,8 +58,16 @@ three arrays of parts. Also pickles these to disk
 *showep(e): shows the cast for episode e
 *showperson(who): shows the parts for "who"
 *unused(): gives an episode count for those not in every episode thusfar
-*preamble(e): prepares the .tex file (preamble and suchlike), returns 3
+*htmltotex(e): function that produces a .tex file (and cast .tex) for
+episode e. Calls get_partarrays, and the following functions:
+****preamble(e): prepares the .tex file (preamble and suchlike), returns 3
 fds: the html to read, the tex and cast tex files to write.
+****texcast(d): adds an entry to each element in d (which is a
+dictionary, specifically an member of the cast dictionary) which is
+the LaTeX command to typeset it.
+****castcommands(f,d): outputs a set of LaTeX macros to f that provide
+bold upper-case commands for each part
+***casttable(f,d): output a LaTeX cast list
 
 -not yet updated-
 
@@ -69,14 +77,6 @@ instead breaking where there is <{p,P,br,BR}>
 and partsbyep arrays, and then re-saves the new Pickle. We'll need to
 comment out fixes once applied, to avoid attempted
 multiple-applications.
-*htmltotex(e): function that produces a .tex file (and cast .tex) for
-episode e: PARTIALLY DONE
-*texcast(d): adds an entry to each element in d (which is a
-dictionary, specifically an member of the cast dictionary) which is
-the LaTeX command to typeset it.
-*castcommands(f,d): outputs a set of LaTeX macros to f that provide
-bold upper-case commands for each part
-*casttable(f,d): output a LaTeX cast list
 *second_pass(fh,ft,epcast,pbe,allparts): actually does the work of
 outputting a .tex file, using make_lines and the casting arrays to
 highlight actions, stage directions, and so on.
