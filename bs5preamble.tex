@@ -1,0 +1,26 @@
+%Common preamble for LaTeXd scripts
+\documentclass[a4paper,10pt]{article}
+\usepackage{charter,fullpage,color,tabularx}
+
+\begin{document}
+\reversemarginpar
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5 \baselineskip}
+
+\newcommand{\scene}{\begin{tabularx}{\textwidth}{X}\hline\end{tabularx}}
+\newcommand{\sfx}{\textbf{SFX: }}
+\newcommand{\n}{\textbf{NARRATOR: }}
+
+\newcommand{\sd}[1]{[\textit{#1}]}
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\song}[1]{\textbf{SONG: #1}}
+
+\newcommand{\B}{\BUFFY~}
+\newcommand{\G}{\GILES~}
+\newcommand{\X}{\XANDER~}
+\newcommand{\W}{\WILLOW~}
+
+\newcommand{\D}{\DAWN~}
+\newcommand{\T}{\TARA~}
+\newcommand{\SP}{\SPIKE~} %\S is already taken by a LaTeX command
+\newcommand{\A}{\ANYA~}
