@@ -441,9 +441,9 @@ def second_pass(fh,ft,epcast,pbe,allparts):
             rr=r'\1\%s\2 ~' % epcast[name][2]
             inrelist.append(name)
             relist.append( (rf,rr) )
-    #go forward to the <hr> element that marks the episode start
+    #every episode begins with a Prologue
     for line in fh:
-        if line.strip()[0:14].upper()=="<hr width=400>".upper():
+        if line.strip()=="<h2>Prologue</h2>":
             break
     lines=make_lines(fh)
     for l in lines:
