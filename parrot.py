@@ -481,33 +481,41 @@ def second_pass(fh,ft,epcast,pbe,allparts):
 def make_lines(f):
     '''make_lines(f) -> array of lines from f
 
-    rather than lines based on \n, this is based on <p> or <br> tags,
-    in any case
+    rather than lines based on \n, this is based on text enclosed in
+    <hx>, <p>, <i> or <blockquote>. Also accepts lines teminated with <br />.
+    Inside a particular tag, other close-tags are ignored - so if you have
+    <p>foo<i>(bar)</i>baz</p>, that's one line
     '''
-    splitre=re.compile("(?:<br>)|(?:<p>)",re.I)
+    startre=re.compile(r"^(<h[1-9]>)|(<p>)|(<i>)|(<blockquote>)|",re.I)
     lines=[]
-    midline=False
+    midline=""
+    thisend="" #end tag to look for
     for s in f:
-        if 'Executive Producers' in s or 'End of episode' in s:
+        s=s.strip()
+        if s=="<h6>END</h6>":
             break
-        l=splitre.split(s)
-        if len(l)==0:
-            continue
-        if midline:
-            lines.append(part+' '+l[0])
-            midline=False
-            l=l[1:]
-        if len(l)==0:
-            continue
-        for x in l[:-1]:
-            x=x.strip()
-            if len(x) > 0:
-                lines.append(x)
-        #if the last entry is non-zero-length, then it's a partial line
-        x=l[-1].strip()
-        if len(x) > 0:
-            part=x
-            midline=True
+        if midline=="":
+            l=startre.search(s)
+            if l.group()!="":
+                thisend=l.group().replace("<","</")
+            else:
+                if s.endswith("<br />"):
+                    lines.append(s[:-6]) #trim the <br />
+                else:
+                    raise ValueError, "unstarted line: %s" % s
+        else:
+            midline+=" " #put a space between concatenated lines
+        s=midline+s
+        if s.endswith(thisend):
+            lines.append(s)
+            midline=""
+        elif s.endswith(thisend+"<br />"):
+            lines.append(s[:-6]) #trim the <br />
+            midline=""
+        elif thisend in s:
+            raise ValueError, "invalid line: %s (%s)" % (s,thisend)
+        else:
+            midline=s
     return lines
 
 def texcast(d):
