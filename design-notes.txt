@@ -68,11 +68,10 @@ the LaTeX command to typeset it.
 ****castcommands(f,d): outputs a set of LaTeX macros to f that provide
 bold upper-case commands for each part
 ***casttable(f,d): output a LaTeX cast list
+* make_lines(f) splits f (to EOF) into "lines"
 
 -not yet updated-
 
-* make_lines(f) splits f (to EOF) into "lines", i.e. ignoring \n and
-instead breaking where there is <{p,P,br,BR}>
 *fix_parts(): this applys some fixes to the members of the allparts
 and partsbyep arrays, and then re-saves the new Pickle. We'll need to
 comment out fixes once applied, to avoid attempted
