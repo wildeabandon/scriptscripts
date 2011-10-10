@@ -518,6 +518,22 @@ def make_lines(f):
             midline=s
     return lines
 
+#testing function - print a line-count for each episode
+def testlines():
+ for x in ord_list():
+     f=open(x,"r")
+     for line in f:
+         if line.strip()=="<h2>Prologue</h2>":
+             break
+     l=make_lines(f)
+     g=open("/tmp/testout.txt","w")
+     for line in l:
+         print >>g, line
+     g.close()
+     return
+     print x, len(l)
+     f.close()
+
 def texcast(d):
     '''texcast(d): returns d with LaTeX-suitable command names
 
