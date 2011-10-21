@@ -524,7 +524,7 @@ def second_pass(fh,ft,epcast,pbe,allparts):
         elif "<blockquote>" in l or l=="<h4>I--</h4>" or \
                 ("<p>" in l and prev[0]=='('): #actually a line!
             if l=="<h4>I--</h4>":
-                print >>ft, "I--\n\n"
+                print >>ft, "I--\n"
                 continue
             elif l[:3]=="<p>":
                 l=l[3:-4]
@@ -542,7 +542,7 @@ def second_pass(fh,ft,epcast,pbe,allparts):
                 if ch not in okchars:
                     print >>sys.stderr, "%s: bad char in %s" % (fh.name,l)
                     break #only 1 warning per line!
-            print >>ft, l, "\n\n"
+            print >>ft, l, "\n"
         elif "<p>" in l or "<i>" in l:
             l=l[3:-4] #trim tags
             l=l.replace('_','\\_')
@@ -558,7 +558,7 @@ def second_pass(fh,ft,epcast,pbe,allparts):
                 if ch not in okchars:
                     print >>sys.stderr, "%s: bad char in %s" % (fh.name,l)
                     break #only 1 warning per line!
-            print >>ft, "\\ti{%s}\n\n" % l
+            print >>ft, "\\ti{%s}\n" % l
         #stage-direction in line, but not inside <i>
         elif "<" not in l and "<h4>" in prev and l[0]=='(': 
             print >>ft, "\\ti{%s}" % l,
