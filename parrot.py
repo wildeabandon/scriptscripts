@@ -12,13 +12,14 @@ defenc="iso-8859-1"
 
 htmlpaths=[]
 
-def preamble(e):
-    '''preamble(e)->get ready to start an episode
+def preamble(e,force=False):
+    '''preamble(e,force=False)->get ready to start an episode
 
     \inputs preamble.tex in the appropriate .tex file,
     and opens that for writing, and the html for reading,
     along with a file to write cast-related LaTeX
     return is (html,tex,cast)
+    if force is True, over-write existing files
     '''
     global htmlpaths
 
@@ -29,14 +30,15 @@ def preamble(e):
     castpath="%s/ep%02d_cast.tex" % (outdir,e)
     htmlpath=htmlpaths[e-1]
     r=codecs.open(htmlpath,"r",defenc)
-    try: #make sure we don't over-write anything
-        w=open(texpath,"r")
-        print >>sys.stderr, texpath, "already exists, giving up"
-        c=open(castpath,"r")
-        print >>sys.stderr, castpath, "already exists, giving up"
-        raise RuntimeError, "Will not over-write above files"
-    except IOError:
-        pass
+    if force==False: 
+        try: #make sure we don't over-write anything
+            w=open(texpath,"r")
+            print >>sys.stderr, texpath, "already exists, giving up"
+            c=open(castpath,"r")
+            print >>sys.stderr, castpath, "already exists, giving up"
+            raise RuntimeError, "Will not over-write above files"
+        except IOError:
+            pass
     w=open(texpath,"w")
     c=open(castpath,"w")
     print >>w, "\input{preamble}"
@@ -642,10 +644,10 @@ def texcast(d):
         d[k].append(tex)
     return d
 
-def htmltotex(e):
+def htmltotex(e,force=False):
     cast,byperson=load_cast()
     allparts,partsbyep,titles=get_partarrays()
-    fh,ft,fc=preamble(e)
+    fh,ft,fc=preamble(e,force)
     cast[e]=texcast(cast[e])
     castcommands(fc,cast[e])
     fc.close()
