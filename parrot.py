@@ -424,64 +424,146 @@ def first_pass(ph):
     return title,parts
 
 def second_pass(fh,ft,epcast,pbe,allparts):
-    '''converts the html lines in fh into TeX in ft'''
+    '''converts the html lines in fh into TeX in ft
+
+    We assume the following things about tags:
+    <h1> = episode title
+    <h2> = Act break (discard)
+    <h3> = scene title (also marks scene break)
+    <h4> = part name => beginning of line (excepting I--, which is a line)
+    <h5> = stage directions about this line
+    <h6> = "cut to", "fade to black", etc, which we can discard
+    <i> = stage direction (usually within a line)
+    <blockquote> = a line (follow these with a blank line, to make a paragraph)
+    <p> = stage direction ; descriptions (except 911 OPERATOR, which is a part)
+'''
+    #set of characters that are OK
+    okchars=string.ascii_letters+string.digits+string.whitespace+string.punctuation
     #italics regexp (?i)==make case-insensitive
     itreg=r'(?i)<i>([^<]*)</i>'
+    #scene titles are in <h3> tags
+    streg=r'(?i)<h3>(.*)</h3>'
     #match open or close blockquote/code/ul/li tags, which we discard
     #Also unpaired <i> tags, and the very rare </P>
     bqreg=r'(?i)(</?blockquote>)|(</?code>)|(</?ul>)|(</?li>)|(</?i>)|(</p>)'
     #""regex, so we can make them tex-quotes ``''
     qreg=r'"([^"]*)"'
-    #regex for things in paratheses in spoken lines (stage directions)
-    sdreg=r'\(([^)]*)\)'
     #Now build a list of find,replace pairs for the stage directions
     #so we can convert them to their upper-case versions
     relist=[]
     inrelist=[]
+    #Make sure we include all the parts in an episode - those we knew about,
+    #and any we added in casting.txt
+    names=[]
     for p in pbe:
-        name=allparts[p].name
+        if allparts[p].name not in names:
+            names.append(allparts[p].name)
+    for n in epcast.keys():
+        if n not in names:
+            names.append(n)
+#    for p in pbe:
+#        name=allparts[p].name
+    for name in names:
+        #Two regexps per part - one that matches "part ", and one that
+        #matches more complex things
         if name in epcast and name not in inrelist:
-            rf=r'(?i)(^| )%s(.?) ' % name
-            rr=r'\1\%s\2 ~' % epcast[name][2]
+            #(?!foo) is a negative lookahead assertion
+            #The (?= )?(?!#) construction is almost certainly a bug...
+            rf=r'(?i)(^| )%s(\'s|\.|,|\))(?= )?(?!#)' % name
+            rfn=r'(?i)(^| )%s (?!#)' % name
+            rr=r'\1\%s\2~' % epcast[name][2]
+            rrn=r'\1\%s ~' % epcast[name][2]
+
+#            rf=r'(?i)(^| )%s(\'s |\. | |, |\.$|\))(?!#)' % name
+#            rfn=r'(?i)(^| )%s (?!#)' % name
+#            rr=r'\1\%s\2~' % epcast[name][2]
+#            rrn=r'\1%s ~' % epcast[name][2]
             inrelist.append(name)
             relist.append( (rf,rr) )
+            relist.append( (rfn,rrn) )
     #every episode begins with a Prologue
     for line in fh:
         if line.strip()=="<h2>Prologue</h2>":
             break
     lines=make_lines(fh)
+    prev=""
     for l in lines:
-        if '<b>' in l or '<B>' in l:
-            print >>ft, "\n\\scene\n"
-        elif '<hr' in l or '<HR' in l:
+        orig=l #before we start mangling it
+        l=l.replace("$","\$")
+        l=l.replace(u'\xa3',"\\pounds")
+        l=l.replace(u'\xc8',"\\'{e}")# typo in the script, I think
+        l=l.replace(u'\xe9',"\\'{e}")
+        l=l.replace(u'\xe7',"\\c{c}")
+        l=l.replace(u'\xf1',"\\~{n}")
+        l=l.replace(u'\xbe ',"\\ae~")
+        l=l.replace(u'\xbe',"\\ae")
+        l=l.replace(u'\xe0',"\\`{a}")
+        l=l.replace("&amp;","\\&")
+        l=re.sub(r'([^- ])- ',r'\1-',l) #foo- bar -> foo-bar
+        if "<h2>" in l or "<h6>" in l:
             pass
-        else:
-            l=re.sub(itreg,r"\\textit{\1}",l) #anything in <i> gets italiced
-            l=re.sub(bqreg,"",l) #discard blockquote/code tags
+        elif "<h3>" in l: #scene titles
+            print >>ft, "\n\\scene\n"
+            l=re.sub(streg,r"\\textit{\1}",l)
+            print >>ft, l.replace("-- ","---"), "\n"
+        elif "<h5>" in l: #stage direction in a line
+            l=l.replace('#','')
+            print >>ft, "\\ti{%s}" % (l[4:-5]),
+        #start of line
+        elif ("<h4>" in l and l!="<h4>I--</h4>") or l=="<p>911 OPERATOR</p>": 
+            if "<h4>" in l:
+                part=l[4:-5] #trim <h4> and </h4>
+            else:
+                part="911 OPERATOR"
+            if part in allparts and allparts[part].name in epcast:
+                print >>ft, "\\%s:" % (epcast[allparts[part].name][2]),
+            else:
+                print >>ft, "\\textbf{%s}:" % (part),
+        elif "<blockquote>" in l or l=="<h4>I--</h4>" or \
+                ("<p>" in l and prev[0]=='('): #actually a line!
+            if l=="<h4>I--</h4>":
+                print >>ft, "I--\n\n"
+                continue
+            elif l[:3]=="<p>":
+                l=l[3:-4]
+            else:
+                l=l[12:-13] #trim the tags
+            l=re.sub(itreg,r"\\ti{\1}",l)
+            l=l.replace("-- ","---")
             l=re.sub(qreg,r"``\1''",l) #"" -> ``''
             l=l.replace('...',r'$\ldots$') #... -> tex ldots
+            l=l.replace('#','')
             if '<' in l or '>' in l:
-                raise ValueError, "undealt with tags in line: %s" % l
-            #Is this line a spoken line?
-            ls=l.split(':')
-            if len(ls)>1:
-                part=' '.join(ls[0].split())
-                rest=': '.join(ls[1:]) #re-assemble rest of line
-            if len(ls)>1 and part.upper()==part: #spoken part
-                #things in () are stage directions in spoken lines
-                rest=re.sub(sdreg,r"\sd{\1}",rest)
-                if part in allparts and allparts[part].name in epcast:
-                    print >>ft, "\\%s: %s" % (epcast[allparts[part].name][2],rest)
-                else:
-                    print >>ft, "\\textbf{%s}: %s" %(part,rest)
-            else: #not-spoken part
-                for rf,rr in relist:
-                    #try and spot all the cast in stage directions
-                    #and replace with the block-bold command
+                raise ValueError, "%s: undealt with tags in line: '%s'"\
+                    % (fh.name,l)
+            for ch in l:
+                if ch not in okchars:
+                    print >>sys.stderr, "%s: bad char in %s" % (fh.name,l)
+                    break #only 1 warning per line!
+            print >>ft, l, "\n\n"
+        elif "<p>" in l or "<i>" in l:
+            l=l[3:-4] #trim tags
+            l=l.replace('_','\\_')
+            for rf,rr in relist:
+                #try and spot all the cast in stage directions
+                #and replace with the block-bold command
+                try:
                     l=re.sub(rf,rr,l)
-                print >>ft, "\\ti{%s}" % l
-            print >>ft #blank line between each "line", to make new paragraph
-                
+                except:
+                    print l, rf, rr
+                    raise
+            for ch in l:
+                if ch not in okchars:
+                    print >>sys.stderr, "%s: bad char in %s" % (fh.name,l)
+                    break #only 1 warning per line!
+            print >>ft, "\\ti{%s}\n\n" % l
+        #stage-direction in line, but not inside <i>
+        elif "<" not in l and "<h4>" in prev and l[0]=='(': 
+            print >>ft, "\\ti{%s}" % l,
+        else:
+            raise ValueError, "%s: unknown line type: '%s'" % (fh.name,l)
+        prev=orig
+        
 def make_lines(f):
     '''make_lines(f) -> array of lines from f
 
@@ -505,6 +587,7 @@ def make_lines(f):
             else:
                 if s.endswith("<br />"):
                     lines.append(s[:-6]) #trim the <br />
+                    continue #done with this physical and logical line
                 else:
                     raise ValueError, "unstarted line: %s" % s
         else:
