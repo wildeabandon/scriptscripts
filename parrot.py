@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 #Code to (hopefully) un-HTML and TeX up Buffy scripts
 
-import os,string,sys,os.path,re,cPickle,glob
+import os,string,sys,os.path,re,cPickle,glob, codecs
 
 #edit these as appropriate
 basedir=os.path.expanduser("~/tex/scripts/buffys5")
 statedir=basedir+"/state"
 datadir=basedir+"/html_buffyology"
 outdir=basedir+"/latex"
+defenc="iso-8859-1"
 
 htmlpaths=[]
 
@@ -27,7 +28,7 @@ def preamble(e):
     texpath="%s/ep%02d.tex" % (outdir,e)
     castpath="%s/ep%02d_cast.tex" % (outdir,e)
     htmlpath=htmlpaths[e-1]
-    r=open(htmlpath,"r")
+    r=codecs.open(htmlpath,"r",defenc)
     try: #make sure we don't over-write anything
         w=open(texpath,"r")
         print >>sys.stderr, texpath, "already exists, giving up"
