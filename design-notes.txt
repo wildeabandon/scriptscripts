@@ -70,6 +70,11 @@ bold upper-case commands for each part
 ***casttable(f,d): output a LaTeX cast list
 * make_lines(f) splits f (to EOF) into "lines"
 
+*Script cheats*
+
+A few(?) edits where the HTML is too mangled.
+081-5-03-replacement.html
+
 -not yet updated-
 
 *fix_parts(): this applys some fixes to the members of the allparts
