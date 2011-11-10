@@ -75,7 +75,9 @@ the LaTeX command to typeset it.
 bold upper-case commands for each part
 ***casttable(f,d): output a LaTeX cast list
 * make_lines(f) splits f (to EOF) into "lines"
-
+*second_pass(fh,ft,epcast,pbe,allparts): actually does the work of
+outputting a .tex file, using make_lines and the casting arrays to
+highlight actions, stage directions, and so on.
 *writecastchanges(): outputs a list of casting changes from when
  casting.txt was written to what's actually in the LaTeX scripts. Calls:
 ** castchanges(e): outputs the changes in casting to episode e. Calls:
@@ -92,9 +94,6 @@ A few(?) edits where the HTML is too mangled.
 and partsbyep arrays, and then re-saves the new Pickle. We'll need to
 comment out fixes once applied, to avoid attempted
 multiple-applications.
-*second_pass(fh,ft,epcast,pbe,allparts): actually does the work of
-outputting a .tex file, using make_lines and the casting arrays to
-highlight actions, stage directions, and so on.
 
 "Nobody" is a special-case casting for parts that we aren't going to
 need (e.g. because they appear in flashbacks). We'll need to
