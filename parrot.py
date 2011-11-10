@@ -361,7 +361,93 @@ def showep(e,f=sys.stdout,showslack=True):
         for x in range(len(slack)-1):
             print >>f, "%s," % slack[x],
         print >>f, slack[-1]
+
+def writecastchanges():
+    'write out a list of all cast changes'
+    allparts,partsbyep,titles=get_partarrays()
+    f=open(basedir+"/castchanges.txt","w")
+
+    for ep in range(1,23):
+        print >>f, "*%d: %s*" % (ep,titles[ep-1])
+        castchanges(ep,f)
+    f.close()
                         
+def castchanges(e,f=sys.stdout):
+    '''castchanges(e) -> casting changes for episode e
+
+    This extracts the cast list for e as per casting.txt and then
+    parses the script .tex file for the cast list in the script,
+    then outputting a summary of the changes.
+    '''
+    #first, the "old" cast.
+    cast,byperson=load_cast()
+    ops=cast[e].keys()
+    ops.sort()
+    opnames=set()
+    opcast={}
+    for p in ops:
+        a=cast[e][p][0] #name
+        b=cast[e][p][1] #person
+        if b!="Nobody": #excludes some non-parts
+            opnames.add(a)
+            opcast[a]=b
+    #now the new cast
+    npnames,npcast=readtexcast("%s/ep%02d.tex" % (outdir,e))
+
+    newonly=npnames-opnames
+    oldonly=opnames-npnames
+    both=set.intersection(npnames,opnames)
+
+    if len(newonly) > 0:
+        print >>f, "New parts:"
+        for x in newonly:
+            print >>f, "%s: %s" % (x,npcast[x])
+        print >>f
+
+    if len(oldonly) > 0:
+        print >>f, "Lost parts:"
+        for x in oldonly:
+            print >>f, "%s: %s" % (x,opcast[x])
+        print >>f
+
+    #lazy, 2-pass approach
+    changes=False
+    for p in both:
+        if opcast[p] != npcast[p]:
+            changes=True
+            break
+    if changes:
+        print >>f, "Casting changes:"
+        for p in both:
+            if opcast[p] != npcast[p]:
+                print >>f, "%s: %s -> %s" % (p,opcast[p],npcast[p])
+        print >>f 
+
+    if changes==False and len(newonly)==0 and len(oldonly)==0:
+        print >>f, "No changes\n"
+
+def readtexcast(path):
+    '''readtexcast(path) -> returns names (set) and cast (dict)
+
+    parses the cast-list table at the beginning of path, and creates
+    a set of the part-names and a dictionary of who is playing what.
+    '''
+    f=open(path,"r")
+    names=set()
+    cast={}
+    for line in f:
+        if line.strip()==r"\begin{tabular}{ll}\\":
+            break
+    for line in f:
+        if line.strip()==r"\end{tabular}":
+            break
+        pname,pwho=line.split('&')
+        pname=pname.strip()
+        pwho=pwho.strip()[:-2] #remove trailing backslashes
+        names.add(pname)
+        cast[pname]=pwho
+    f.close()
+    return names,cast
 
 def unused():
     cast,byperson=load_cast()

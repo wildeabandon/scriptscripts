@@ -76,6 +76,11 @@ bold upper-case commands for each part
 ***casttable(f,d): output a LaTeX cast list
 * make_lines(f) splits f (to EOF) into "lines"
 
+*writecastchanges(): outputs a list of casting changes from when
+ casting.txt was written to what's actually in the LaTeX scripts. Calls:
+** castchanges(e): outputs the changes in casting to episode e. Calls:
+*** readtexcast(path): parses the casting table in a LaTeX script
+
 *Script cheats*
 
 A few(?) edits where the HTML is too mangled.
