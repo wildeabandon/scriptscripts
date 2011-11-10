@@ -37,6 +37,12 @@ showep et al have a bug that they infer the list of people invited
 from casting.txt, so if someone has no parts at all, they don't show
 up in the list of people uncast in a particular episode.
 
+Bugs:
+
+e.g. "SPIKE, and" ends up as "\SPIKE,~ ", which is wrong; the regexp
+for part-name-followed-by-punctuation needs fixing.
+The odd <i>foo</i> in mid-stage-direction gets missed
+
 Current State:
 
 -updated for buffyology-
