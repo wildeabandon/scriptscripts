@@ -4,7 +4,7 @@
 import os,string,sys,os.path,re,cPickle,glob, codecs
 
 #edit these as appropriate
-basedir=os.path.expanduser("~/tex/scripts/buffys5")
+basedir=os.path.expanduser("~/tex/scripts/buffys7")
 statedir=basedir+"/state"
 datadir=basedir+"/html_buffyology"
 outdir=basedir+"/latex"
@@ -71,7 +71,7 @@ def ord_list():
     '''returns a list of the .htm files'''
     paths=[]
     for x in range(1,23):
-        pattern="%s/%03d-5-%02d-*.html" % (datadir,x+78,x)
+        pattern="%s/%03d-7-%02d-*.html" % (datadir,x+122,x)
         g=glob.glob(pattern)
         if len(g)!=1:
             sys.exit("Pattern %s matched %d paths" % (pattern,len(g)))
@@ -203,8 +203,8 @@ def get_castlist():
     byapp.sort(reverse=True)
     f=open(statedir+"/casting.txt","w")
     g=open(statedir+"/verbosecasting.txt","w")
-    print >>f, "Buffy Season 5 - Cast List\n\nRecurring parts:"
-    print >>g, "Buffy Season 5 - Cast List\n\n"
+    print >>f, "Buffy Season 7 - Cast List\n\nRecurring parts:"
+    print >>g, "Buffy Season 7 - Cast List\n\n"
     prev=None
     for p in byapp:
         if prev and p==prev:

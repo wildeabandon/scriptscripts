@@ -4,7 +4,13 @@ This code is based on the python I used for Buffy Season 2, hopefully
 with some enhancements, and also with changes to cope with the
 differences in the HTML used to typeset the Season 6 scripts. The
 final version of the season 6 code (as used) was tagged "BuffyS6", so
-could be gone back to at any point.
+could be gone back to at any point. Similarly, the final version of
+the s5 code was tagged "BuffyS5".
+
+All the buffyology scripts are stored in
+buffyology_all_episodes.tar.bz2 
+You can extract a season to the current directory using a rune like:
+tar --wildcards --strip-components=1 -xjvf ../../buffyology_all_episodes.tar.bz2 '*-7-*'
 
 *e-reader output*
 The PDFs that result from pdflatex aren't that easy on the eye on a
