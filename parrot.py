@@ -559,7 +559,7 @@ def second_pass(fh,ft,epcast,pbe,allparts):
             #The (?= )?(?!#) construction is almost certainly a bug...
             rf=r'(?i)(^| )%s(\'s|\.|,|\))(?= )?(?!#)' % name
             rfn=r'(?i)(^| )%s (?!#)' % name
-            rr=r'\1\%s\2~' % epcast[name][2]
+            rr=r'\1\%s\2' % epcast[name][2]
             rrn=r'\1\%s ~' % epcast[name][2]
 
 #            rf=r'(?i)(^| )%s(\'s |\. | |, |\.$|\))(?!#)' % name

@@ -55,7 +55,7 @@ up in the list of people uncast in a particular episode.
 Bugs:
 
 e.g. "SPIKE, and" ends up as "\SPIKE,~ ", which is wrong; the regexp
-for part-name-followed-by-punctuation needs fixing.
+for part-name-followed-by-punctuation needs fixing. I think this is fixed.
 The odd <i>foo</i> in mid-stage-direction gets missed
 
 Current State:
