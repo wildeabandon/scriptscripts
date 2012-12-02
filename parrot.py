@@ -104,7 +104,7 @@ class Part:
             self.real=False
         else:
             if name=="ALL" or name=="BUFFYBOT" \
-                   or name=="BOTH" or '/' in name:
+                   or name=="BOTH" or ( '/' in name and "FIRST" not in name):
                 self.real=False
             else:
                 self.real=True
