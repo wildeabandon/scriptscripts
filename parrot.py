@@ -148,15 +148,18 @@ def add_part(name,episode,allparts,multiple=None):
         allparts[name]=p
     return allparts
 
-def get_partarrays():
+def get_partarrays(overwrite=False):
     '''either loads or generates the allparts,partsbyep and titles arrays'''
-    try:
-        f=open(statedir+"/allparts.dat","rb")
-        pickle=cPickle.Unpickler(f)
-        allparts=pickle.load()
-        partsbyep=pickle.load()
-        titles=pickle.load()
-    except IOError:
+    if overwrite == False:
+        try:
+            f=open(statedir+"/allparts.dat","rb")
+            pickle=cPickle.Unpickler(f)
+            allparts=pickle.load()
+            partsbyep=pickle.load()
+            titles=pickle.load()
+        except IOError:
+            allparts,partsbyep,titles=gen_partarrays()
+    else:
         allparts,partsbyep,titles=gen_partarrays()
     return allparts,partsbyep,titles
         
@@ -186,13 +189,14 @@ def gen_partarrays():
     return allparts,partsbyep,titles
 
 
-def get_castlist():
+def get_castlist(overwrite=False):
     '''write out a single list of the entire cast'''
-    if os.path.exists(statedir+"/casting.txt") \
-            or os.path.exists(statedir+"/verbosecasting.txt"):
+    if overwrite==False and (
+            os.path.exists(statedir+"/casting.txt") \
+            or os.path.exists(statedir+"/verbosecasting.txt") ):
         print >>sys.stderr, "Casting files exist; will not over-write"
         return
-    allparts,partsbyep,titles=get_partarrays()
+    allparts,partsbyep,titles=get_partarrays(overwrite)
     byapp=[]
     parts=allparts.keys()
     for p in parts:
