@@ -56,7 +56,29 @@ def castcommands(f,d):
             print >>f, "\\newcommand{\\%s}{\\textbf{%s}}" % (texname,name)
             done.append(texname)
 
-def casttable(f,d):
+def casttable(e,fc=None,d=None,force=False):
+    ctpath="%s/ep%02d_casttable.tex" % (outdir,e)
+    castpath="%s/ep%02d_cast.tex" % (outdir,e)
+    if force==False:
+        try:
+            t=open(ctpath,"r")
+            print >>sys.stderr, ctpath, "already exists, giving up"
+            return False
+        except IOError:
+            pass
+    ct=open(ctpath,"w")
+    if d is None:
+        cast,byperson=load_cast()
+        d=texcast(cast[e])
+    write_casttable(ct,d)
+    if fc is None:
+        fc=open(castpath,"w")
+    castcommands(fc,d)
+    fc.close()
+    ct.close()
+    return True
+
+def write_casttable(f,d):
     '''print a LaTeX-ed cast list'''
     print >>f, """\\subsection*{Cast List}
 \\begin{tabular}{ll}\\\\"""
@@ -775,14 +797,14 @@ def htmltotex(e,force=False):
     if fh is None:
         return
     cast[e]=texcast(cast[e])
-    castcommands(fc,cast[e])
-    fc.close()
     print >>ft, """\\title{Episode %d: %s}
 \\author{}
 \\date{}
 \\maketitle
-""" % (e,titles[e-1])
-    casttable(ft,cast[e])
+
+\\input{ep%02d_casttable}
+""" % (e,titles[e-1],e)
+    casttable(e,fc,cast[e],force)
     second_pass(fh,ft,cast[e],partsbyep[e-1],allparts)
     print >>ft, "\\end{document}"
     fh.close()
