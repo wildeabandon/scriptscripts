@@ -36,7 +36,7 @@ def preamble(e,force=False):
             print >>sys.stderr, texpath, "already exists, giving up"
             c=open(castpath,"r")
             print >>sys.stderr, castpath, "already exists, giving up"
-            raise RuntimeError, "Will not over-write above files"
+            return
         except IOError:
             pass
     w=open(texpath,"w")
