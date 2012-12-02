@@ -189,14 +189,14 @@ def gen_partarrays():
     return allparts,partsbyep,titles
 
 
-def get_castlist(overwrite=False):
+def get_castlist(overwrite=False,newparts=False):
     '''write out a single list of the entire cast'''
     if overwrite==False and (
             os.path.exists(statedir+"/casting.txt") \
             or os.path.exists(statedir+"/verbosecasting.txt") ):
         print >>sys.stderr, "Casting files exist; will not over-write"
         return
-    allparts,partsbyep,titles=get_partarrays(overwrite)
+    allparts,partsbyep,titles=get_partarrays(newparts)
     byapp=[]
     parts=allparts.keys()
     for p in parts:
