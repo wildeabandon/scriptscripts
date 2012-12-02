@@ -190,7 +190,11 @@ def gen_partarrays():
 
 
 def get_castlist(overwrite=False,newparts=False):
-    '''write out a single list of the entire cast'''
+    '''write out a single list of the entire cast
+
+    if overwrite=true, this over-writes casting.txt and verbosecasting.txt
+    if newparts=true, this re-runs the part-guessing process
+    '''
     if overwrite==False and (
             os.path.exists(statedir+"/casting.txt") \
             or os.path.exists(statedir+"/verbosecasting.txt") ):
@@ -460,42 +464,68 @@ def unused():
     for p in people:
         if len(byperson[p].keys())<22:
             print "%s is in %s episodes" % (p,len(byperson[p].keys()))
+
+def first_part_standardize(allparts,key):
+    p=allparts[key]
+    oldname=p.name
+    a,b=oldname.split('/')
+    for x in a,b:
+        if 'FIRST' in x:
+            continue
+        else:
+            alt=x
+    newname="THE FIRST (AS %s)" % alt
+    p.name=newname
     
-def fix_parts():
+def fix_parts(newcast=False):
     '''apply changes to the parts lists'''
     allparts,partsbyep,titles=get_partarrays()
     #make changes
-    
-    #this one is a typo
-    allparts["DANW"]=allparts["DAWN"]
-    #these are the same part,but both appear in the ep14 script
-    #LSD is in 5,14
-    allparts["CLEM"].appearances.append(5)
-    allparts["LOOSE-SKINNED DEMON"]=allparts["CLEM"]
-    #I don't think we can really have this as a part name
-    allparts["WITCHY-POO"].name="GIRL DRESSED AS WITCH"
+
+    first_parts=filter(lambda k: 'FIRST' in k, allparts.keys())
+    for pname in first_parts:
+        first_part_standardize(allparts,pname)
+
+    #First-as-Spike gets named 3 ways in the cast list.
+    #"Spike Double" in 8,9, "Spike/First" in 9 and "The First/Spike" in 10
+    allparts["SPIKE DOUBLE"].appearances.append(10)
+    allparts["SPIKE DOUBLE"].name="THE FIRST (AS SPIKE)"
+    allparts["SPIKE/FIRST"]=allparts["SPIKE DOUBLE"]
+    allparts["THE FIRST/SPIKE"]=allparts["SPIKE DOUBLE"]
+    #similar issue with First-as-Buffy
+    allparts["THE FIRST/BUFFY"].appearances.append(9)
+    allparts["BUFFY/FIRST"]=allparts["THE FIRST/BUFFY"]
+
+    #fix some names
+    allparts["WORKER #1"].name="WORKER 1"
+    allparts["WORKER #2"].name="WORKER 2"
+    allparts["VILLAGER #1"].name="VILLAGER 1"
+    allparts["VILLAGER #2"].name="VILLAGER 2"
+    allparts["SHADOW MAN #1"].name="SHADOW MAN 1"
+    allparts["SHADOW MAN #2"].name="SHADOW MAN 2"
+    allparts["SHADOW MAN #3"].name="SHADOW MAN 3"
+    allparts["COP#1"].name="COP 1"
+    allparts["COP #1"]=allparts["COP#1"]
+    allparts["COP#2"].name="COP 2"
+    allparts["COP#3"].name="COP 3"
+    allparts["UBERVAMP"].name="TUROK-HAN"
+
+    ##XXX Examples of other things you can do here
     #not a real part
-    allparts["BOTH"].real=False
+    #allparts["BOTH"].real=False
     #Narrator appears in this script
-    allparts["NARRATOR"].appearances.remove(12)
-    #Another typo
-    allparts["RICARD"]=allparts["RICHARD"]        
-    #not a real part
-    allparts["GUESTS"].real=False
-    #another typo
-    allparts["D"]=allparts["DAWN"]
-    #this is the voice of "Demon" in eps19-22
-    allparts["VOICE"].real=False
+    #allparts["NARRATOR"].appearances.remove(12)
     
     #now save the new versions
-    os.rename(basedir+"/allparts.dat",basedir+"/allparts.dat.bak")
-    f=open(basedir+"/allparts.dat","wb")
+    os.rename(statedir+"/allparts.dat",statedir+"/allparts.dat.bak")
+    f=open(statedir+"/allparts.dat","wb")
     pickle=cPickle.Pickler(f,-1)
     pickle.dump(allparts)
     pickle.dump(partsbyep)
     pickle.dump(titles)
     f.close()
-
+    if newcast:
+        get_castlist(overwrite=True)
 
 def first_pass(ph):
     '''opens ph (HTML file) and does some first-pass stuff
