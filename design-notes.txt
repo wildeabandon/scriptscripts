@@ -34,6 +34,35 @@ First, call get_castlist() to guess the parts from each episode, and
 produce a casting.txt file. Check that looks sane, and if not, go back
 and look at guess_parts/first_pass et al
 
+Then write a fix_parts() function (if necessary) to tidy up the parts
+list somewhat; this should edit entries in allparts (that fixes up the
+references in the partsbyep array automatically). If you want to
+re-generate the cast lists, do fix_parts(newcast=True)
+
+Then for each episode, you have to do htmltotex(e). If you later want
+to update the cast table, you can do casttable(e,force=True)
+
+While casting, showep(e) and showperson(who) are useful tools. Then
+use writecast() to output the casting by person and episode
+
+* S7 Notes*
+
+The first gets scripted as the person-its-being. There's no easy way
+to deal with this, but e.g. everyone who we know is dead at this point
+could be turned into First-As-Foo
+
+It might be nice to have a file (for re-use haha) that defines parts
+that are repeats (Buffy etc) and ones that never are (cop etc) and
+mappings between parts (cop #1 -> cop#1).
+
+The current design assumes that X/Y parts are multiple people
+speaking, and therefore not real parts. We need to handle X/FIRST and
+THE FIRST/X. Also WILLOW/WARREN
+
+Since we're starting on the scripts earlier, it would be useful to
+have a way of updating the cast list without destroying our work on
+the script. Do this by creating another file(!) epXX_casttable.tex
+
 *FAIL*
 
 No place like home (5) and Fool for love (7) are typeset differently
