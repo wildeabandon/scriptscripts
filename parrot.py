@@ -258,7 +258,10 @@ def load_cast():
             break
         else:
             a,b=line.split(':')
-            a=a.split(')')[1].strip()
+            #this horror deals with the "()" at the beginning of the
+            #multiple lines, but leaves part-names with () as they were
+            if a[0]=='(':
+                a=")".join(a.split(')')[1:]).strip()
             b=b.strip()
             multiples[a.upper()]=[a,b]
     episode=1
@@ -307,7 +310,8 @@ def load_cast():
                 else:
                     byperson[b]={episode:[c]}
     f.close()
-    del byperson['Nobody']
+    if 'Nobody' in byperson:
+        del byperson['Nobody']
     return cast,byperson
 
 def writecast():
