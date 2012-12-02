@@ -36,7 +36,7 @@ def preamble(e,force=False):
             print >>sys.stderr, texpath, "already exists, giving up"
             c=open(castpath,"r")
             print >>sys.stderr, castpath, "already exists, giving up"
-            return
+            return None,None,None
         except IOError:
             pass
     w=open(texpath,"w")
@@ -772,6 +772,8 @@ def htmltotex(e,force=False):
     cast,byperson=load_cast()
     allparts,partsbyep,titles=get_partarrays()
     fh,ft,fc=preamble(e,force)
+    if fh is None:
+        return
     cast[e]=texcast(cast[e])
     castcommands(fc,cast[e])
     fc.close()
