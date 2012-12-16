@@ -637,6 +637,7 @@ def second_pass(fh,ft,epcast,pbe,allparts):
     prev=""
     for l in lines:
         orig=l #before we start mangling it
+        l=l.replace("magick","magic")
         l=l.replace("$","\$")
         l=l.replace(u'\xa3',"\\pounds")
         l=l.replace(u'\xc8',"\\'{e}")# typo in the script, I think
