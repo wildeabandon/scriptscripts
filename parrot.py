@@ -647,6 +647,7 @@ def second_pass(fh,ft,epcast,pbe,allparts):
         l=l.replace(u'\xbe ',"\\ae~")
         l=l.replace(u'\xbe',"\\ae")
         l=l.replace(u'\xe0',"\\`{a}")
+        l=l.replace(u'\xfc',"\\\"{u}")
         l=l.replace("&amp;","\\&")
         l=re.sub(r'([^- ])- ',r'\1-',l) #foo- bar -> foo-bar
         if "<h2>" in l or "<h6>" in l:
