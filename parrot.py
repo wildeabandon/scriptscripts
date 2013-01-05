@@ -650,6 +650,7 @@ def second_pass(fh,ft,epcast,pbe,allparts):
         l=l.replace(u'\xfc',"\\\"{u}")
         l=l.replace(u'\xb8',"\\\"{u}") #Typo in the script
         l=l.replace(u'\x82',"") # x82 is a control char [break permitted?]
+        l=l.replace(u'\xdc',"\\\"{U}")
         l=l.replace("&amp;","\\&")
         l=re.sub(r'([^- ])- ',r'\1-',l) #foo- bar -> foo-bar
         if "<h2>" in l or "<h6>" in l:
@@ -712,6 +713,9 @@ def second_pass(fh,ft,epcast,pbe,allparts):
         #stage-direction in line, but not inside <i>
         elif "<" not in l and "<h4>" in prev and l[0]=='(': 
             print >>ft, "\\ti{%s}" % l,
+        #sometimes we end up with an empty line; just discard that 
+        elif l=='':
+            pass
         else:
             raise ValueError, "%s: unknown line type: '%s'" % (fh.name,l)
         prev=orig
