@@ -21,6 +21,9 @@ best to remove when done)
 ii) use the ebook-convert code:
 for i in *.pdf; do ebook-convert "$i" "${i/pdf/mobi}"; done
 
+pandoc (version in wheezy) can produce ebook formats from TeX, but is
+very stupid, so something will have to expand all our macros.
+
 The initial git checkin was frob.py from Buffy Season 2, and I've
 slowly added things to it - as old bits have become clearly obsolete,
 I've removed them.
@@ -62,6 +65,13 @@ THE FIRST/X. Also WILLOW/WARREN
 Since we're starting on the scripts earlier, it would be useful to
 have a way of updating the cast list without destroying our work on
 the script. Do this by creating another file(!) epXX_casttable.tex
+
+* S7 Hacks *
+
+ep4 had one duff line (<i>That</i> lame demon?<br />); edit by hand.
+ep5 had one duff line (Note: All sung lyrics are indicated by the symbol.<br />
+); remove by hand. Ep22 has a couple of tricky lines "Welcome to
+Sunndale" is not within a <p>; edit by hand.
 
 *FAIL*
 
