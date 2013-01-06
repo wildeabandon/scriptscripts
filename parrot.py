@@ -651,6 +651,8 @@ def second_pass(fh,ft,epcast,pbe,allparts):
         l=l.replace(u'\xb8',"\\\"{u}") #Typo in the script
         l=l.replace(u'\x82',"") # x82 is a control char [break permitted?]
         l=l.replace(u'\xdc',"\\\"{U}")
+        l=l.replace(u'\xc1',"\\c{c}") #typo in the script
+        l=l.replace(u'\xb0',"$^\\circ$") #degrees
         l=l.replace("&amp;","\\&")
         l=re.sub(r'([^- ])- ',r'\1-',l) #foo- bar -> foo-bar
         if "<h2>" in l or "<h6>" in l:
