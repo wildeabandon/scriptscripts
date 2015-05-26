@@ -46,7 +46,8 @@ Then for each episode, you have to do htmltotex(e). If you later want
 to update the cast table, you can do casttable(e,force=True)
 
 While casting, showep(e) and showperson(who) are useful tools. Then
-use writecast() to output the casting by person and episode
+use writecast() to output the casting by person and episode. unused()
+tells you who has episodes off.
 
 * S7 Notes*
 
